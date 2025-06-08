@@ -5,10 +5,12 @@ import com.sigei.model.enm.ETipoUsuario;
 public class Administrador extends Usuario {
 
     public Administrador() {
+        tipoUsuario = ETipoUsuario.ADMIN;
     }
 
-    public Administrador(String nome, String email, String senha, ETipoUsuario tipoUsuario) {
-        super(nome, email, senha, tipoUsuario);
+    public Administrador(String nome, String email, String senha) {
+        super(nome, email, senha);
+        tipoUsuario = ETipoUsuario.ADMIN;
     }
 
     @Override

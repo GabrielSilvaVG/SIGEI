@@ -5,16 +5,15 @@ import com.sigei.model.enm.ETipoUsuario;
 public abstract class Usuario {
     private int id;
     private String nome, email, senha;
-    private ETipoUsuario tipoUsuario;
+    protected ETipoUsuario tipoUsuario;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha, ETipoUsuario tipoUsuario) {
+    public Usuario(String nome, String email, String senha) {
         setNome(nome);
         setEmail(email);
         setSenha(senha);
-        setTipoUsuario(tipoUsuario);
     }
 
     public int getId() {
@@ -74,13 +73,6 @@ public abstract class Usuario {
 
     public ETipoUsuario getTipoUsuario() {
         return tipoUsuario;
-    }
-
-    public void setTipoUsuario(ETipoUsuario tipoUsuario) {
-        if (tipoUsuario == null) {
-            throw new IllegalArgumentException("Tipo de usuário não pode ser nulo ou vazio.");
-        }
-        this.tipoUsuario = tipoUsuario;
     }
 
     @Override

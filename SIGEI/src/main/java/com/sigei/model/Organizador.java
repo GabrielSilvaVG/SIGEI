@@ -7,12 +7,14 @@ public class Organizador extends Usuario {
     private String empresa, telefone;
 
     public Organizador() {
+        tipoUsuario = ETipoUsuario.ORGANIZADOR;
     }
 
-    public Organizador(String nome, String email, String senha, ETipoUsuario tipoUsuario, String empresa, String telefone) {
-        super(nome, email, senha, tipoUsuario);
+    public Organizador(String nome, String email, String senha, String empresa, String telefone) {
+        super(nome, email, senha);
         setEmpresa(empresa);
         setTelefone(telefone);
+        tipoUsuario = ETipoUsuario.ORGANIZADOR;
     }
 
     public String getEmpresa() {

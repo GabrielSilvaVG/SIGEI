@@ -7,12 +7,14 @@ public class Participante extends Usuario {
     private String telefone, cpf;
 
     public Participante() {
+        tipoUsuario = ETipoUsuario.PARTICIPANTE;
     }
 
-    public Participante(String nome, String email, String senha, ETipoUsuario tipoUsuario, String telefone, String cpf) {
-        super(nome, email, senha, tipoUsuario);
+    public Participante(String nome, String email, String senha, String telefone, String cpf) {
+        super(nome, email, senha);
         setTelefone(telefone);
         setCpf(cpf);
+        tipoUsuario = ETipoUsuario.PARTICIPANTE;
     }
 
     public String getTelefone() {
