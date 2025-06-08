@@ -1,18 +1,19 @@
 package com.sigei.model;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Evento {
 
     private int id, vagasTotal, vagasOcupadas;
     private String nome, tipo, local, palestrante;
-    private LocalDate dataEvento;
+    private LocalDateTime dataEvento;
     private Organizador organizador;
     private ArrayList<Participante> participantes;
 
 
-    public Evento(Organizador organizador, String palestrante, String local, LocalDate dataEvento, String tipo, int vagasTotal, String nome) {
+    public Evento(Organizador organizador, String palestrante, String local, LocalDateTime dataEvento, String tipo, int vagasTotal, String nome) {
         setOrganizador(organizador);
         setPalestrante(palestrante);
         setLocal(local);
@@ -59,11 +60,11 @@ public class Evento {
         this.nome = nome;
     }
 
-    public LocalDate getDataEvento() {
+    public LocalDateTime getDataEvento() {
         return dataEvento;
     }
 
-    public void setDataEvento(LocalDate dataEvento) {
+    public void setDataEvento(LocalDateTime dataEvento) {
         if (dataEvento == null) {
             throw new IllegalArgumentException("A data do Evento não pode ser nula.");
         }
@@ -109,7 +110,7 @@ public class Evento {
     }
 
 
-    // Métodos de negócio
+    // Métodos
 
     public void addParticipante(Participante participante) {
         if (participante == null) {
