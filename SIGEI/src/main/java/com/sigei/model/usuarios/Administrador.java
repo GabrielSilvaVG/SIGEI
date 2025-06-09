@@ -1,4 +1,4 @@
-package com.sigei.model;
+package com.sigei.model.usuarios;
 
 import com.sigei.model.enm.ETipoUsuario;
 

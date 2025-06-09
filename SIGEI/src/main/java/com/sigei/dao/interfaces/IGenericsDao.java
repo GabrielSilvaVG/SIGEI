@@ -1,4 +1,4 @@
-package com.sigei.dao;
+package com.sigei.dao.interfaces;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

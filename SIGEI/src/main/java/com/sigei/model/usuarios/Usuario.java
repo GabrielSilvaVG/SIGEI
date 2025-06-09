@@ -1,4 +1,4 @@
-package com.sigei.model;
+package com.sigei.model.usuarios;
 
 import com.sigei.model.enm.ETipoUsuario;
 
@@ -64,8 +64,6 @@ public abstract class Usuario {
             throw new IllegalArgumentException("Senha não pode ser nulo ou vazio.");
         } else if (senha.length() < 8) {
             throw new IllegalArgumentException("Senha precisa ter no minimo 8 caracteres.");
-        } else if (senha.length() > 20) {
-            throw new IllegalArgumentException("Senha não pode ter mais de 20 caracteres.");
         } else {
             this.senha = senha;
         }

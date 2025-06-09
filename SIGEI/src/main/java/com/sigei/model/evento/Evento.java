@@ -1,5 +1,8 @@
-package com.sigei.model;
+package com.sigei.model.evento;
 
+
+import com.sigei.model.usuarios.Organizador;
+import com.sigei.model.usuarios.Participante;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

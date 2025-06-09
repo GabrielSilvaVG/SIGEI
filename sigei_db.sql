@@ -32,7 +32,8 @@ CREATE TABLE `usuario` (
   `telefone` varchar(20) DEFAULT NULL,
   `cpf` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`idusuario`),
-  UNIQUE KEY `idusuario_UNIQUE` (`idusuario`)
+  UNIQUE KEY `idusuario_UNIQUE` (`idusuario`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-08 14:05:46
+-- Dump completed on 2025-06-08 14:55:44

@@ -1,6 +1,7 @@
-package com.sigei.model;
+package com.sigei.model.evento;
 
 import com.sigei.model.enm.EStatusInscricao;
+import com.sigei.model.usuarios.Participante;
 
 import java.time.LocalDateTime;
 
