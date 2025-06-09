@@ -1,4 +1,4 @@
-package com.sigei.model.enm;
+package com.sigei.model.enums;
 
 public enum ETipoUsuario {
     ADMIN,

@@ -1,6 +1,6 @@
 package com.sigei.model.usuarios;
 
-import com.sigei.model.enm.ETipoUsuario;
+import com.sigei.model.enums.ETipoUsuario;
 
 public class Organizador extends Usuario {
 

@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `sigei_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `sigei_db`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
 -- Host: localhost    Database: sigei_db
@@ -14,6 +16,70 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `evento`
+--
+
+DROP TABLE IF EXISTS `evento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `evento` (
+  `idevento` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `tipo` varchar(50) NOT NULL,
+  `local` varchar(100) NOT NULL,
+  `dataEvento` datetime NOT NULL,
+  `vagasTotal` int NOT NULL,
+  `vagasOcupadas` int DEFAULT '0',
+  `palestrante` varchar(100) NOT NULL,
+  `organizadorID` int NOT NULL,
+  PRIMARY KEY (`idevento`),
+  UNIQUE KEY `idevento_UNIQUE` (`idevento`),
+  KEY `organizadorID_idx` (`organizadorID`),
+  CONSTRAINT `organizadorID` FOREIGN KEY (`organizadorID`) REFERENCES `usuario` (`idusuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `evento`
+--
+
+LOCK TABLES `evento` WRITE;
+/*!40000 ALTER TABLE `evento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `evento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inscricao`
+--
+
+DROP TABLE IF EXISTS `inscricao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `inscricao` (
+  `inscricaoID` int NOT NULL AUTO_INCREMENT,
+  `participanteID` int NOT NULL,
+  `eventoID` int NOT NULL,
+  `dataInscricao` datetime NOT NULL,
+  `EStatusInscricao` enum('CONFIRMADA','CANCELADA','CONCLUIDA') NOT NULL,
+  PRIMARY KEY (`inscricaoID`),
+  UNIQUE KEY `inscricaoID_UNIQUE` (`inscricaoID`),
+  KEY `participanteID_idx` (`participanteID`),
+  KEY `eventoID_idx` (`eventoID`),
+  CONSTRAINT `eventoID` FOREIGN KEY (`eventoID`) REFERENCES `evento` (`idevento`),
+  CONSTRAINT `participanteID` FOREIGN KEY (`participanteID`) REFERENCES `usuario` (`idusuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inscricao`
+--
+
+LOCK TABLES `inscricao` WRITE;
+/*!40000 ALTER TABLE `inscricao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inscricao` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `usuario`
@@ -55,4 +121,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-08 14:55:44
+-- Dump completed on 2025-06-09 11:01:35
