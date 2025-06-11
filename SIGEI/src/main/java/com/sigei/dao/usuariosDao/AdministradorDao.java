@@ -3,6 +3,7 @@ package com.sigei.dao.usuariosDao;
 import com.sigei.dao.interfaces.IGenericsDao;
 import com.sigei.dao.conexao.ConnectionFactory;
 import com.sigei.model.usuarios.Administrador;
+import com.sigei.model.usuarios.Organizador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -102,4 +103,23 @@ public class AdministradorDao implements IGenericsDao<Administrador, Integer> {
         }
         return qtd;
     }
+
+    public Administrador authenticate(String email, String senha) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "SELECT idusuario,nome,email,senha,tipoUsuario,empresa,telefone\n" +
+                "FROM usuario where email = ? and senha = md5(?) and tipoUsuario = 'ADMIN';";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setString(1, email);
+        pst.setString(2, senha);
+        ResultSet rs = pst.executeQuery();
+        Administrador a = null;
+        if (rs.next()) {
+            a = new Administrador(rs.getString("nome"),rs.getString("email"),rs.getString("senha"));
+            a.setId(rs.getInt("idUsuario"));
+            return a;
+        }
+        return null;
+    }
+
 }

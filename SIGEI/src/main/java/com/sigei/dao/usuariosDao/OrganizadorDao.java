@@ -1,8 +1,10 @@
 package com.sigei.dao.usuariosDao;
 
+import com.sigei.dao.evento.EventoDao;
 import com.sigei.dao.interfaces.IGenericsDao;
 import com.sigei.dao.conexao.ConnectionFactory;
 import com.sigei.model.usuarios.Organizador;
+import com.sigei.model.usuarios.Participante;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,6 +53,8 @@ public class OrganizadorDao implements IGenericsDao<Organizador, Integer> {
     public void delete(Integer key) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnection();
         String sql = "DELETE FROM usuario WHERE idusuario = ? AND tipoUsuario = 'ORGANIZADOR';";
+
+        new EventoDao().deleteAllFromOrg(key);
 
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, key);
@@ -102,5 +106,23 @@ public class OrganizadorDao implements IGenericsDao<Organizador, Integer> {
             qtd = rs.getInt("total");
         }
         return qtd;
+    }
+
+    public Organizador authenticate(String email, String senha) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "SELECT idusuario,nome,email,senha,tipoUsuario,empresa,telefone\n" +
+                "FROM usuario where email = ? and senha = md5(?) and tipoUsuario = 'ORGANIZADOR';";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setString(1, email);
+        pst.setString(2, senha);
+        ResultSet rs = pst.executeQuery();
+        Organizador o = null;
+        if (rs.next()) {
+            o = new Organizador(rs.getString("nome"),rs.getString("email"),rs.getString("senha"),rs.getString("empresa"),rs.getString("telefone"));
+            o.setId(rs.getInt("idUsuario"));
+            return o;
+        }
+        return null;
     }
 }

@@ -5,6 +5,7 @@ import com.sigei.model.usuarios.Organizador;
 import com.sigei.model.usuarios.Participante;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Evento {
@@ -13,7 +14,6 @@ public class Evento {
     private String nome, tipo, local, palestrante;
     private LocalDateTime dataEvento;
     private Organizador organizador;
-    private ArrayList<Participante> participantes;
 
 
     public Evento(Organizador organizador, String palestrante, String local, LocalDateTime dataEvento, String tipo, int vagasTotal, String nome) {
@@ -25,7 +25,6 @@ public class Evento {
         setVagasTotal(vagasTotal);
         setNome(nome);
         this.vagasOcupadas = 0;
-        this.participantes = new ArrayList<>();
     }
 
 
@@ -52,6 +51,10 @@ public class Evento {
 
     public int getVagasOcupadas() {
         return vagasOcupadas;
+    }
+
+    public void setVagasOcupadas(int vagasOcupadas) {
+         this.vagasOcupadas = vagasOcupadas;
     }
 
     public String getNome() {
@@ -115,43 +118,6 @@ public class Evento {
 
     // Métodos
 
-    public void addParticipante(Participante participante) {
-        if (participante == null) {
-            throw new IllegalArgumentException("Participante não pode ser nulo.");
-        }
-        if (!temVagasDisponiveis()) {
-            throw new IllegalArgumentException("Total de vagas atingido.");
-        }
-        participantes.add(participante);
-        vagasOcupadas++;
-    }
-
-    public void removerParticipante(int participanteID) {
-        boolean removido = false;
-        for (int i = 0; i < participantes.size(); i++) {
-            if (participantes.get(i).getId() == participanteID) {
-                participantes.remove(i);
-                vagasOcupadas--;
-                removido = true;
-                break;
-            }
-        }
-        if (!removido) {
-            throw new IllegalArgumentException("Participante com ID " + participanteID + " não encontrado.");
-        }
-    }
-
-    public ArrayList<Participante> getParticipantes() {
-        return new ArrayList<>(participantes); // Retorna uma cópia da lista
-    }
-
-    public Participante buscarParticipante(int id) {
-        for (Participante p : participantes) {
-            if (p.getId() == id) return p;
-        }
-        throw new IllegalArgumentException("Participante com ID " + id + " não encontrado.");
-    }
-
     public boolean temVagasDisponiveis() {
         return vagasOcupadas < vagasTotal;
     }
@@ -174,9 +140,10 @@ public class Evento {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return "Evento: " + nome +
                 " | Tipo: " + tipo +
-                " | Data: " + dataEvento +
+                " | Data: " + dataEvento.format(formatter) +
                 " | Local: " + local +
                 " | Palestrante: " + palestrante +
                 " | Vagas: " + vagasOcupadas + "/" + vagasTotal +

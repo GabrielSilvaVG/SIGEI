@@ -104,4 +104,22 @@ public class ParticipanteDao implements IGenericsDao<Participante, Integer> {
         }
         return qtd;
     }
+
+    public Participante authenticate(String email, String senha) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "SELECT idusuario,nome,email,senha,tipoUsuario,telefone,cpf\n" +
+                    "FROM usuario where email = ? and senha = md5(?) and tipoUsuario = 'PARTICIPANTE';";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setString(1, email);
+        pst.setString(2, senha);
+        ResultSet rs = pst.executeQuery();
+        Participante p = null;
+        if (rs.next()) {
+            p = new Participante(rs.getString("nome"),rs.getString("email"),rs.getString("senha"),rs.getString("telefone"),rs.getString("cpf"));
+            p.setId(rs.getInt("idUsuario"));
+            return p;
+        }
+        return null;
+    }
 }
