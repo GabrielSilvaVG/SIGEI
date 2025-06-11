@@ -3,7 +3,6 @@ package com.sigei.dao.usuariosDao;
 import com.sigei.dao.interfaces.IGenericsDao;
 import com.sigei.dao.conexao.ConnectionFactory;
 import com.sigei.model.usuarios.Administrador;
-import com.sigei.model.usuarios.Organizador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

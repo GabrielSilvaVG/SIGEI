@@ -4,8 +4,6 @@ import com.sigei.dao.conexao.ConnectionFactory;
 import com.sigei.dao.interfaces.IGenericsDao;
 import com.sigei.dao.usuariosDao.OrganizadorDao;
 import com.sigei.model.evento.Evento;
-import com.sigei.model.usuarios.Administrador;
-import com.sigei.model.usuarios.Organizador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -2,11 +2,9 @@ package com.sigei.model.evento;
 
 
 import com.sigei.model.usuarios.Organizador;
-import com.sigei.model.usuarios.Participante;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class Evento {
 

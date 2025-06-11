@@ -4,6 +4,7 @@ import com.sigei.model.enums.EStatusInscricao;
 import com.sigei.model.usuarios.Participante;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Inscricao {
     private int id;
@@ -62,5 +63,11 @@ public class Inscricao {
         this.dataInscricao = dataInscricao;
     }
 
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+        return "id: " + id + "| evento: " + evento + "| participante: " + participante +
+                "| dataInscricao: " + dataInscricao.format(formatter) + "| statusInscricao: " + statusInscricao;
+    }
 }
