@@ -1,11 +1,15 @@
 package com.sigei.model.evento;
 
 
+import com.sigei.dao.evento.EventoDao;
 import com.sigei.model.enums.EStatusEvento;
 import com.sigei.model.usuarios.Organizador;
+import com.sigei.model.usuarios.Participante;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Evento {
 
@@ -14,7 +18,7 @@ public class Evento {
     private LocalDateTime dataEvento;
     private Organizador organizador;
     EStatusEvento statusEvento;
-
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public Evento(Organizador organizador, String palestrante, String local, LocalDateTime dataEvento, String tipo, int vagasTotal, String nome) {
         setOrganizador(organizador);
@@ -135,6 +139,26 @@ public class Evento {
     }
 
 
+    public String gerarRelatorio() throws SQLException, ClassNotFoundException {
+        StringBuilder sb = new StringBuilder();
+        ArrayList<Participante> participantes = new EventoDao().getAllParticipantFromEvent(this.id);
+
+        sb.append("RELATÓRIO DO EVENTO\n");
+        sb.append("===================\n");
+        sb.append("Título: ").append(this.nome).append("\n");
+        sb.append("Tipo: ").append(this.tipo).append("\n");
+        sb.append("Palestrante: ").append(this.palestrante).append("\n");
+        sb.append("Data do Evento: ").append(this.dataEvento.format(formatter)).append("\n");
+        sb.append("Status: ").append(this.statusEvento).append("\n");
+        sb.append("Organizador: ").append(this.getOrganizador().getNome()).append("\n\n");
+
+        sb.append("Participantes inscritos: ").append(participantes.size()).append("\n");
+       for (Participante i : participantes) {
+           sb.append("Nome: ").append(i.getNome()).append("\n");
+       }
+        return sb.toString();
+    }
+
     // Métodos auxiliares
 
     private void validarString(String campo, String nomeCampo) {
@@ -148,7 +172,6 @@ public class Evento {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return "Evento: " + nome +
                 " | Tipo: " + tipo +
                 " | Data: " + dataEvento.format(formatter) +

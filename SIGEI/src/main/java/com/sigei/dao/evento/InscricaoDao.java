@@ -18,17 +18,32 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
     @Override
     public void insert(Inscricao obj) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnection();
+        String sqlVerifica = "SELECT statusEvento, vagasTotal, vagasOcupadas FROM evento WHERE idevento = ?";
 
-        String sqlVerifica = "SELECT statusEvento FROM evento WHERE idevento = ?";
         PreparedStatement pstVerifica = c.prepareStatement(sqlVerifica);
         pstVerifica.setInt(1, obj.getEvento().getId());
         ResultSet rs = pstVerifica.executeQuery();
+
         if (rs.next()) {
             if (rs.getString("statusEvento").equals("FINALIZADO")) {
                 throw new IllegalArgumentException("Não é possível se inscrever. O evento já foi finalizado.");
             }
         }
 
+        if (rs.getInt("vagasOcupadas") >= rs.getInt("vagasTotal")) {
+            throw new IllegalArgumentException("Não é possível se inscrever. O evento não possui vagas disponíveis.");
+        }
+
+        // Verifica se o participante já está inscrito neste evento
+        String sqlDuplicata = "SELECT COUNT(*) as total FROM inscricao WHERE participanteID = ? AND eventoID = ?";
+        PreparedStatement pstDuplicata = c.prepareStatement(sqlDuplicata);
+        pstDuplicata.setInt(1, obj.getParticipante().getId());
+        pstDuplicata.setInt(2, obj.getEvento().getId());
+        ResultSet rsDuplicata = pstDuplicata.executeQuery();
+
+        if (rsDuplicata.next() && rsDuplicata.getInt("total") > 0) {
+            throw new IllegalArgumentException("O participante já está inscrito neste evento.");
+        }
 
         String sql = "INSERT INTO inscricao\n" +
                     "(participanteID,eventoID,dataInscricao)\n" +
@@ -39,6 +54,12 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
         pst.setInt(2,  obj.getEvento().getId());
         pst.setObject(3, obj.getDataInscricao());
         pst.execute();
+
+        // Atualiza o número de vagas ocupadas do evento
+        String sqlUpdateVagas = "UPDATE evento SET vagasOcupadas = vagasOcupadas + 1 WHERE idevento = ?";
+        PreparedStatement pstUpdate = c.prepareStatement(sqlUpdateVagas);
+        pstUpdate.setInt(1, obj.getEvento().getId());
+        pstUpdate.execute();
     }
 
     @Override
@@ -56,17 +77,27 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
         pst.execute();
     }
 
-    @Override
-    public void delete(Integer key) throws SQLException, ClassNotFoundException {
-        Connection c = ConnectionFactory.getConnection();
-        String sql = "DELETE FROM inscricao\n" +
-                    "WHERE inscricaoID = ?;";
+        @Override
+        public void delete(Integer key) throws SQLException, ClassNotFoundException {
+            Connection c = ConnectionFactory.getConnection();
 
-        PreparedStatement pst = c.prepareStatement(sql);
-        pst.setInt(1, key);
-        pst.execute();
+            Inscricao i = new InscricaoDao().findByKey(key);
+            if (i == null) {
+                throw new IllegalArgumentException("Inscrição não encontrada.");
+            }
 
-    }
+            String sql = "DELETE FROM inscricao\n" +
+                        "WHERE inscricaoID = ?;";
+
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setInt(1, key);
+            pst.execute();
+
+            String sqlUpdateVagas = "UPDATE evento SET vagasOcupadas = vagasOcupadas - 1 WHERE idevento = ?";
+            PreparedStatement pstUpdate = c.prepareStatement(sqlUpdateVagas);
+            pstUpdate.setInt(1,i.getEvento().getId());
+            pstUpdate.execute();
+        }
 
     @Override
     public Inscricao findByKey(Integer key) throws SQLException, ClassNotFoundException {
@@ -123,4 +154,6 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
         }
         return qtd;
     }
+
+
 }

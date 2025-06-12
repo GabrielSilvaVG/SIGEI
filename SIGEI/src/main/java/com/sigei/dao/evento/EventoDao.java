@@ -5,6 +5,7 @@ import com.sigei.dao.interfaces.IGenericsDao;
 import com.sigei.dao.usuariosDao.OrganizadorDao;
 import com.sigei.model.enums.EStatusEvento;
 import com.sigei.model.evento.Evento;
+import com.sigei.model.usuarios.Participante;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -134,6 +135,25 @@ public class EventoDao implements IGenericsDao<Evento, Integer> {
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, key);
         pst.execute();
+    }
+
+    public ArrayList<Participante> getAllParticipantFromEvent(Integer key) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "SELECT idusuario,nome,email,senha,telefone,cpf\n" +
+                    "FROM usuario JOIN inscricao ON usuario.idusuario = inscricao.participanteID\n" +
+                    "WHERE inscricao.eventoID = ?;\n" +
+                    "\n";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, key);
+        ResultSet rs = pst.executeQuery();
+        ArrayList<Participante> participantes = new ArrayList<>();
+        while(rs.next()) {
+            Participante p = new Participante(rs.getString("nome"), rs.getString("email"), rs.getString("senha"), rs.getString("telefone"), rs.getString("cpf"));
+            p.setId(rs.getInt("idusuario"));
+            participantes.add(p);
+        }
+        return participantes;
     }
 
 }

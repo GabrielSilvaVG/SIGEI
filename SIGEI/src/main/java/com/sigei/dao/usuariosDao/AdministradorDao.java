@@ -68,7 +68,7 @@ public class AdministradorDao implements IGenericsDao<Administrador, Integer> {
         Administrador a = null;
         if (rs.next()) {
             a = new Administrador(rs.getString("nome"), rs.getString("email"), rs.getString("senha"));
-            a.setId(rs.getInt("idUsuario"));
+            a.setId(rs.getInt("idusuario"));
             return a;
         }
         return null;
@@ -115,7 +115,7 @@ public class AdministradorDao implements IGenericsDao<Administrador, Integer> {
         Administrador a = null;
         if (rs.next()) {
             a = new Administrador(rs.getString("nome"),rs.getString("email"),rs.getString("senha"));
-            a.setId(rs.getInt("idUsuario"));
+            a.setId(rs.getInt("idusuario"));
             return a;
         }
         return null;

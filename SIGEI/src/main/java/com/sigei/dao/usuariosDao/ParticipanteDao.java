@@ -70,7 +70,7 @@ public class ParticipanteDao implements IGenericsDao<Participante, Integer> {
         Participante p = null;
         if (rs.next()) {
             p = new Participante(rs.getString("nome"),rs.getString("email"),rs.getString("senha"),rs.getString("telefone"),rs.getString("cpf"));
-            p.setId(rs.getInt("idUsuario"));
+            p.setId(rs.getInt("idusuario"));
             return p;
         }
         return null;
@@ -117,7 +117,7 @@ public class ParticipanteDao implements IGenericsDao<Participante, Integer> {
         Participante p = null;
         if (rs.next()) {
             p = new Participante(rs.getString("nome"),rs.getString("email"),rs.getString("senha"),rs.getString("telefone"),rs.getString("cpf"));
-            p.setId(rs.getInt("idUsuario"));
+            p.setId(rs.getInt("idusuario"));
             return p;
         }
         return null;

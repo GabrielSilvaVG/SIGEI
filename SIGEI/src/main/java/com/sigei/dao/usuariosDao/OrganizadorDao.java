@@ -72,7 +72,7 @@ public class OrganizadorDao implements IGenericsDao<Organizador, Integer> {
         Organizador o = null;
         if (rs.next()) {
             o = new Organizador(rs.getString("nome"),rs.getString("email"),rs.getString("senha"),rs.getString("empresa"),rs.getString("telefone"));
-            o.setId(rs.getInt("idUsuario"));
+            o.setId(rs.getInt("idusuario"));
             return o;
         }
         return null;
@@ -119,7 +119,7 @@ public class OrganizadorDao implements IGenericsDao<Organizador, Integer> {
         Organizador o = null;
         if (rs.next()) {
             o = new Organizador(rs.getString("nome"),rs.getString("email"),rs.getString("senha"),rs.getString("empresa"),rs.getString("telefone"));
-            o.setId(rs.getInt("idUsuario"));
+            o.setId(rs.getInt("idusuario"));
             return o;
         }
         return null;
