@@ -1,6 +1,5 @@
 package com.sigei.model.evento;
 
-import com.sigei.model.enums.EStatusInscricao;
 import com.sigei.model.usuarios.Participante;
 
 import java.time.LocalDateTime;
@@ -11,13 +10,11 @@ public class Inscricao {
     private Evento evento;
     private Participante participante;
     private LocalDateTime dataInscricao;
-    private EStatusInscricao statusInscricao;
 
 
-    public Inscricao(Evento evento, Participante participante, EStatusInscricao statusInscricao, LocalDateTime dataInscricao) {
+    public Inscricao(Evento evento, Participante participante, LocalDateTime dataInscricao) {
         this.evento = evento;
         this.participante = participante;
-        this.statusInscricao = statusInscricao;
         this.dataInscricao = dataInscricao;
     }
 
@@ -29,14 +26,6 @@ public class Inscricao {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public EStatusInscricao getStatusInscricao() {
-        return statusInscricao;
-    }
-
-    public void setStatusInscricao(EStatusInscricao statusInscricao) {
-        this.statusInscricao = statusInscricao;
     }
 
     public Participante getParticipante() {
@@ -68,6 +57,6 @@ public class Inscricao {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         return "id: " + id + "| evento: " + evento + "| participante: " + participante +
-                "| dataInscricao: " + dataInscricao.format(formatter) + "| statusInscricao: " + statusInscricao;
+                "| dataInscricao: " + dataInscricao.format(formatter);
     }
 }

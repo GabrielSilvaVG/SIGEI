@@ -1,6 +1,7 @@
 package com.sigei.model.evento;
 
 
+import com.sigei.model.enums.EStatusEvento;
 import com.sigei.model.usuarios.Organizador;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ public class Evento {
     private String nome, tipo, local, palestrante;
     private LocalDateTime dataEvento;
     private Organizador organizador;
+    EStatusEvento statusEvento;
 
 
     public Evento(Organizador organizador, String palestrante, String local, LocalDateTime dataEvento, String tipo, int vagasTotal, String nome) {
@@ -23,6 +25,7 @@ public class Evento {
         setVagasTotal(vagasTotal);
         setNome(nome);
         this.vagasOcupadas = 0;
+        statusEvento = EStatusEvento.NAO_FINALIZADO;
     }
 
 
@@ -113,6 +116,13 @@ public class Evento {
         this.local = local;
     }
 
+    public EStatusEvento getStatusEvento() {
+        return statusEvento;
+    }
+
+    public void setStatusEvento(EStatusEvento statusEvento) {
+        this.statusEvento = statusEvento;
+    }
 
     // Métodos
 

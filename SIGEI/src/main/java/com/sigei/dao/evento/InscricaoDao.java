@@ -3,7 +3,6 @@ package com.sigei.dao.evento;
 import com.sigei.dao.conexao.ConnectionFactory;
 import com.sigei.dao.interfaces.IGenericsDao;
 import com.sigei.dao.usuariosDao.ParticipanteDao;
-import com.sigei.model.enums.EStatusInscricao;
 import com.sigei.model.evento.Evento;
 import com.sigei.model.evento.Inscricao;
 import com.sigei.model.usuarios.Participante;
@@ -19,15 +18,26 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
     @Override
     public void insert(Inscricao obj) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnection();
+
+        String sqlVerifica = "SELECT statusEvento FROM evento WHERE idevento = ?";
+        PreparedStatement pstVerifica = c.prepareStatement(sqlVerifica);
+        pstVerifica.setInt(1, obj.getEvento().getId());
+        ResultSet rs = pstVerifica.executeQuery();
+        if (rs.next()) {
+            if (rs.getString("statusEvento").equals("FINALIZADO")) {
+                throw new IllegalArgumentException("Não é possível se inscrever. O evento já foi finalizado.");
+            }
+        }
+
+
         String sql = "INSERT INTO inscricao\n" +
-                    "(participanteID,eventoID,dataInscricao,EStatusInscricao)\n" +
-                    "VALUES(?,?,?,?);";
+                    "(participanteID,eventoID,dataInscricao)\n" +
+                    "VALUES(?,?,?);";
 
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1,  obj.getParticipante().getId());
         pst.setInt(2,  obj.getEvento().getId());
         pst.setObject(3, obj.getDataInscricao());
-        pst.setString(4, obj.getStatusInscricao().toString());
         pst.execute();
     }
 
@@ -35,15 +45,14 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
     public void alter(Inscricao obj) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnection();
         String sql = "UPDATE inscricao\n" +
-                    "SET participanteID = ?,eventoID = ?,dataInscricao = ?,EStatusInscricao = ?\n" +
+                    "SET participanteID = ?,eventoID = ?,dataInscricao = ?\n" +
                     "WHERE inscricaoID = ?;";
 
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1,  obj.getParticipante().getId());
         pst.setInt(2,  obj.getEvento().getId());
         pst.setObject(3, obj.getDataInscricao());
-        pst.setString(4, obj.getStatusInscricao().toString());
-        pst.setInt(5, obj.getId());
+        pst.setInt(4, obj.getId());
         pst.execute();
     }
 
@@ -62,7 +71,7 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
     @Override
     public Inscricao findByKey(Integer key) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnection();
-        String sql = "SELECT inscricaoID,participanteID,eventoID,dataInscricao,EStatusInscricao\n" +
+        String sql = "SELECT inscricaoID,participanteID,eventoID,dataInscricao  \n" +
                 "FROM inscricao where inscricaoID = ?;";
 
         PreparedStatement pst = c.prepareStatement(sql);
@@ -73,9 +82,8 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
 
             Evento evento = new EventoDao().findByKey(rs.getInt("eventoID"));
             Participante participante = new ParticipanteDao().findByKey(rs.getInt("participanteID"));
-            EStatusInscricao status = EStatusInscricao.valueOf(rs.getString("EStatusInscricao"));
             LocalDateTime dataInscricao = (LocalDateTime) rs.getObject("dataInscricao");
-            i = new Inscricao(evento, participante, status, dataInscricao);
+            i = new Inscricao(evento, participante, dataInscricao);
             i.setId(rs.getInt("inscricaoID"));
             return i;
         }
@@ -84,11 +92,35 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
 
     @Override
     public ArrayList<Inscricao> findAll() throws SQLException, ClassNotFoundException {
-        return null;
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "SELECT inscricaoID,participanteID,eventoID,dataInscricao\n" +
+                "FROM inscricao;";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        ArrayList<Inscricao> inscricoes = new ArrayList<>();
+        while (rs.next()) {
+            Evento evento = new EventoDao().findByKey(rs.getInt("eventoID"));
+            Participante participante = new ParticipanteDao().findByKey(rs.getInt("participanteID"));
+            LocalDateTime dataInscricao = (LocalDateTime) rs.getObject("dataInscricao");
+            Inscricao i = new Inscricao(evento, participante, dataInscricao);
+            i.setId(rs.getInt("inscricaoID"));
+            inscricoes.add(i);
+        }
+        return inscricoes;
     }
 
     @Override
     public int count() throws SQLException, ClassNotFoundException {
-        return 0;
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "SELECT COUNT(*) AS total FROM inscricao;";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        int qtd = 0;
+        if (rs.next()) {
+            qtd = rs.getInt("total");
+        }
+        return qtd;
     }
 }

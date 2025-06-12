@@ -24,6 +24,8 @@ public class Organizador extends Usuario {
     public void setEmpresa(String empresa) {
         if (empresa == null || empresa.trim().isEmpty()) {
             throw new IllegalArgumentException("Empresa não pode ser nula ou vazia.");
+        } else if (empresa.length() > 100) {
+            throw new IllegalArgumentException("Empresa não pode conter mais que 100 caracteres.");
         } else {
             this.empresa = empresa;
         }
@@ -36,6 +38,8 @@ public class Organizador extends Usuario {
     public void setTelefone(String telefone) {
         if (telefone == null || telefone.trim().isEmpty()) {
             throw new IllegalArgumentException("Telefone não pode ser nulo.");
+        } else if (telefone.length() > 100) {
+            throw new IllegalArgumentException("Telefone não pode conter mais que 100 caracteres.");
         } else {
             this.telefone = telefone;
         }

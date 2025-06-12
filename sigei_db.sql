@@ -34,11 +34,12 @@ CREATE TABLE `evento` (
   `vagasOcupadas` int DEFAULT '0',
   `palestrante` varchar(100) NOT NULL,
   `organizadorID` int NOT NULL,
+  `statusEvento` enum('NAO_FINALIZADO','FINALIZADO') NOT NULL,
   PRIMARY KEY (`idevento`),
   UNIQUE KEY `idevento_UNIQUE` (`idevento`),
   KEY `organizadorID_idx` (`organizadorID`),
   CONSTRAINT `organizadorID` FOREIGN KEY (`organizadorID`) REFERENCES `usuario` (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +63,6 @@ CREATE TABLE `inscricao` (
   `participanteID` int NOT NULL,
   `eventoID` int NOT NULL,
   `dataInscricao` datetime NOT NULL,
-  `EStatusInscricao` enum('CONFIRMADA','CANCELADA','CONCLUIDA') NOT NULL,
   PRIMARY KEY (`inscricaoID`),
   UNIQUE KEY `inscricaoID_UNIQUE` (`inscricaoID`),
   KEY `participanteID_idx` (`participanteID`),
@@ -100,7 +100,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`idusuario`),
   UNIQUE KEY `idusuario_UNIQUE` (`idusuario`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,6 +109,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Julio','b@a','550e1bafe077ff0b0b67f4e32f29d751','ORGANIZADOR','f','e',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -121,4 +122,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-09 11:01:35
+-- Dump completed on 2025-06-12 10:31:14

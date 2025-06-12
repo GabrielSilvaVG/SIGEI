@@ -24,6 +24,8 @@ public class Participante extends Usuario {
     public void setTelefone(String telefone) {
         if (telefone == null || telefone.trim().isEmpty()) {
             throw new IllegalArgumentException("Telefone não pode ser nulo ou vazio.");
+        } else if (telefone.length() > 20) {
+            throw new IllegalArgumentException("Telefone não pode conter mais que 20 caracteres.");
         } else {
             this.telefone = telefone;
         }
