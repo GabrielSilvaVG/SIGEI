@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.sigei.View;
+package com.sigei.View.LoginRegister;
 
 import javax.swing.JFrame;
 
@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 public class LoginForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
-
     /**
      * Creates new form LoginForm
      */
@@ -32,17 +31,19 @@ public class LoginForm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        RegisterButton1 = new javax.swing.JLabel();
         bglower = new javax.swing.JPanel();
         bgupper = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabelClose = new javax.swing.JLabel();
         jLabelmin = new javax.swing.JLabel();
         TextoEmail = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        TextoEmail1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
-        RegisterButton = new javax.swing.JLabel();
+        fieldEmail = new javax.swing.JTextField();
+        TextoSenha = new javax.swing.JLabel();
+        fieldSenha = new javax.swing.JPasswordField();
+        LoginButton = new javax.swing.JButton();
+        RegisterButtonParticipante = new javax.swing.JLabel();
+        RegisterButtonOrganizador = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(247, 250, 252));
 
@@ -58,6 +59,16 @@ public class LoginForm extends javax.swing.JFrame {
         );
 
         jButton1.setText("jButton1");
+
+        RegisterButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        RegisterButton1.setForeground(new java.awt.Color(190, 227, 248));
+        RegisterButton1.setText("Create new account");
+        RegisterButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        RegisterButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RegisterButton1MouseEntered(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -99,7 +110,7 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(bgupperLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addComponent(jLabelmin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelClose)
@@ -122,35 +133,57 @@ public class LoginForm extends javax.swing.JFrame {
         TextoEmail.setForeground(new java.awt.Color(237, 242, 247));
         TextoEmail.setText("Email:");
 
-        jTextField1.setBackground(new java.awt.Color(74, 85, 104));
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(247, 250, 252));
-        jTextField1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fieldEmail.setBackground(new java.awt.Color(74, 85, 104));
+        fieldEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        fieldEmail.setForeground(new java.awt.Color(247, 250, 252));
+        fieldEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        TextoEmail1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        TextoEmail1.setForeground(new java.awt.Color(237, 242, 247));
-        TextoEmail1.setText("Senha:");
+        TextoSenha.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        TextoSenha.setForeground(new java.awt.Color(237, 242, 247));
+        TextoSenha.setText("Senha:");
 
-        jPasswordField1.setBackground(new java.awt.Color(74, 85, 104));
-        jPasswordField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(247, 250, 252));
-        jPasswordField1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        fieldSenha.setBackground(new java.awt.Color(74, 85, 104));
+        fieldSenha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        fieldSenha.setForeground(new java.awt.Color(247, 250, 252));
+        fieldSenha.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fieldSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                fieldSenhaActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(49, 130, 206));
-        jButton2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(237, 242, 247));
-        jButton2.setText("Login");
-        jButton2.setBorder(null);
+        LoginButton.setBackground(new java.awt.Color(49, 130, 206));
+        LoginButton.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        LoginButton.setForeground(new java.awt.Color(237, 242, 247));
+        LoginButton.setText("Login");
+        LoginButton.setBorder(null);
+        LoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        RegisterButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        RegisterButton.setForeground(new java.awt.Color(190, 227, 248));
-        RegisterButton.setText("Create new account");
-        RegisterButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        RegisterButtonParticipante.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        RegisterButtonParticipante.setForeground(new java.awt.Color(190, 227, 248));
+        RegisterButtonParticipante.setText("Registrar Participante");
+        RegisterButtonParticipante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        RegisterButtonParticipante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegisterButtonParticipanteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RegisterButtonParticipanteMouseEntered(evt);
+            }
+        });
+
+        RegisterButtonOrganizador.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        RegisterButtonOrganizador.setForeground(new java.awt.Color(190, 227, 248));
+        RegisterButtonOrganizador.setText("Registrar Organizador");
+        RegisterButtonOrganizador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        RegisterButtonOrganizador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegisterButtonOrganizadorMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RegisterButtonOrganizadorMouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout bglowerLayout = new javax.swing.GroupLayout(bglower);
         bglower.setLayout(bglowerLayout);
@@ -158,23 +191,27 @@ public class LoginForm extends javax.swing.JFrame {
             bglowerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(bgupper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(bglowerLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addGroup(bglowerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bglowerLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
                         .addGroup(bglowerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(TextoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextoEmail1))
+                            .addComponent(TextoSenha))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(bglowerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1)))
+                            .addComponent(fieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                            .addComponent(fieldSenha))
+                        .addContainerGap(68, Short.MAX_VALUE))
                     .addGroup(bglowerLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(RegisterButton))
-                    .addGroup(bglowerLayout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(RegisterButtonParticipante)
+                        .addGap(37, 37, 37)
+                        .addComponent(RegisterButtonOrganizador)
+                        .addGap(57, 57, 57))))
+            .addGroup(bglowerLayout.createSequentialGroup()
+                .addGap(171, 171, 171)
+                .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         bglowerLayout.setVerticalGroup(
             bglowerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,17 +219,19 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(bgupper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(bglowerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TextoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(bglowerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextoEmail1))
-                .addGap(68, 68, 68)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(RegisterButton)
-                .addGap(36, 36, 36))
+                    .addComponent(fieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextoSenha))
+                .addGap(60, 60, 60)
+                .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(bglowerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RegisterButtonParticipante)
+                    .addComponent(RegisterButtonOrganizador))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,23 +250,49 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCloseMouseClicked
-           System.exit(0);
+            this.setVisible(false);
     }//GEN-LAST:event_jLabelCloseMouseClicked
 
     private void jLabelminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelminMouseClicked
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabelminMouseClicked
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void fieldSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_fieldSenhaActionPerformed
+
+    private void RegisterButtonParticipanteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonParticipanteMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterButtonParticipanteMouseEntered
+
+    private void RegisterButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButton1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterButton1MouseEntered
+
+    private void RegisterButtonOrganizadorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonOrganizadorMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterButtonOrganizadorMouseEntered
+
+    private void RegisterButtonParticipanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonParticipanteMouseClicked
+        RegisterParticipanteForm rp = new RegisterParticipanteForm(this);
+        rp.setVisible(true);
+        rp.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_RegisterButtonParticipanteMouseClicked
+
+    private void RegisterButtonOrganizadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonOrganizadorMouseClicked
+        RegisterOrganizadorForm ro = new RegisterOrganizadorForm(this); // Passa referência do LoginForm
+        ro.setVisible(true);
+        ro.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_RegisterButtonOrganizadorMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        d//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
@@ -248,18 +313,20 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel RegisterButton;
+    private javax.swing.JButton LoginButton;
+    private javax.swing.JLabel RegisterButton1;
+    private javax.swing.JLabel RegisterButtonOrganizador;
+    private javax.swing.JLabel RegisterButtonParticipante;
     private javax.swing.JLabel TextoEmail;
-    private javax.swing.JLabel TextoEmail1;
+    private javax.swing.JLabel TextoSenha;
     private javax.swing.JPanel bglower;
     private javax.swing.JPanel bgupper;
+    private javax.swing.JTextField fieldEmail;
+    private javax.swing.JPasswordField fieldSenha;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelClose;
     private javax.swing.JLabel jLabelmin;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
