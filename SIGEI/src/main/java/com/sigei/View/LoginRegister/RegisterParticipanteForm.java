@@ -4,14 +4,18 @@
  */
 package com.sigei.View.LoginRegister;
 
-import javax.swing.JFrame;
+import com.sigei.dao.usuariosDao.ParticipanteDao;
+import com.sigei.model.usuarios.Participante;
+
+import javax.swing.*;
+import java.sql.SQLException;
 
 /**
  *
  * @author gabri
  */
 public class RegisterParticipanteForm extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegisterParticipanteForm.class.getName());
     private LoginForm loginForm;
     /**
@@ -96,6 +100,11 @@ public class RegisterParticipanteForm extends javax.swing.JFrame {
         fieldNome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fieldNome.setForeground(new java.awt.Color(247, 250, 252));
         fieldNome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fieldNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldNomeActionPerformed(evt);
+            }
+        });
 
         TextoSenha.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         TextoSenha.setForeground(new java.awt.Color(237, 242, 247));
@@ -137,6 +146,11 @@ public class RegisterParticipanteForm extends javax.swing.JFrame {
         fieldEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fieldEmail.setForeground(new java.awt.Color(247, 250, 252));
         fieldEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fieldEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldEmailActionPerformed(evt);
+            }
+        });
 
         TextoCPF.setBackground(new java.awt.Color(237, 242, 247));
         TextoCPF.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -264,20 +278,74 @@ public class RegisterParticipanteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelmin2MouseClicked
 
     private void fieldSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldSenhaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_fieldSenhaActionPerformed
 
     private void RegisterButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButonActionPerformed
-        // TODO add your handling code here:
+
+        Participante p = new Participante();
+
+        try {
+            p.setNome(fieldNome.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+        try {
+            p.setEmail(fieldEmail.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+         try {
+             p.setSenha(new String(fieldSenha.getPassword()));
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e.getMessage());
+             return;
+         }
+
+        try {
+             p.setCpf(fieldCpf.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+        try {
+            p.setTelefone(fieldTelefone.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+        try {
+            new ParticipanteDao().insert(p);
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
+            return;
+        }
+
+        this.setVisible(false);
+        loginForm.setVisible(true);
     }//GEN-LAST:event_RegisterButonActionPerformed
 
     private void fieldCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCpfActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_fieldCpfActionPerformed
 
     private void fieldTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTelefoneActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_fieldTelefoneActionPerformed
+
+    private void fieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNomeActionPerformed
+
+    }//GEN-LAST:event_fieldNomeActionPerformed
+
+    private void fieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldEmailActionPerformed
 
     /**
      * @param args the command line arguments

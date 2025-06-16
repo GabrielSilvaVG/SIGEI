@@ -4,7 +4,13 @@
  */
 package com.sigei.View.LoginRegister;
 
+import com.sigei.dao.usuariosDao.OrganizadorDao;
+import com.sigei.dao.usuariosDao.ParticipanteDao;
+import com.sigei.model.usuarios.Organizador;
+import com.sigei.model.usuarios.Participante;
+
 import javax.swing.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -273,7 +279,52 @@ public class RegisterOrganizadorForm extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldSenhaActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
-        // TODO add your handling code here:
+        Organizador o = new Organizador();
+
+        try {
+            o.setNome(fieldNome.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+        try {
+            o.setEmail(fieldEmail.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+        try {
+            o.setSenha(new String(fieldSenha.getPassword()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+        try {
+            o.setEmpresa(fieldEmpresa.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+        try {
+            o.setTelefone(fieldTelefone.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }
+
+        try {
+            new OrganizadorDao().insert(o);
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
+            return;
+        }
+
+        this.setVisible(false);
+        loginForm.setVisible(true);
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void jLabelBack2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBack2MouseClicked

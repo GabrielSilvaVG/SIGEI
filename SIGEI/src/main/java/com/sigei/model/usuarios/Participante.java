@@ -38,8 +38,8 @@ public class Participante extends Usuario {
     public void setCpf(String cpf) {
         if (cpf == null || cpf.trim().isEmpty()) {
             throw new IllegalArgumentException("Cpf não pode ser nulo ou vazio.");
-        } else if (cpf.length()>11) {
-            throw new IllegalArgumentException("Cpf não pode conter mais que 11 caracteres.");
+        } else if (cpf.length() != 11) {
+            throw new IllegalArgumentException("Cpf tem que conter 11 caracteres.");
         } else {
             this.cpf = cpf;
         }

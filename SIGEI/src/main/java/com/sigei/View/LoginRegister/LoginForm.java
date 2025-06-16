@@ -4,7 +4,15 @@
  */
 package com.sigei.View.LoginRegister;
 
-import javax.swing.JFrame;
+import com.sigei.dao.usuariosDao.AdministradorDao;
+import com.sigei.dao.usuariosDao.OrganizadorDao;
+import com.sigei.dao.usuariosDao.ParticipanteDao;
+import com.sigei.model.usuarios.Administrador;
+import com.sigei.model.usuarios.Organizador;
+import com.sigei.model.usuarios.Participante;
+
+import javax.swing.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -158,6 +166,11 @@ public class LoginForm extends javax.swing.JFrame {
         LoginButton.setText("Login");
         LoginButton.setBorder(null);
         LoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginButtonActionPerformed(evt);
+            }
+        });
 
         RegisterButtonParticipante.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         RegisterButtonParticipante.setForeground(new java.awt.Color(190, 227, 248));
@@ -286,6 +299,50 @@ public class LoginForm extends javax.swing.JFrame {
         ro.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_RegisterButtonOrganizadorMouseClicked
+
+    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
+        String email = fieldEmail.getText();
+        String senha = new String(fieldSenha.getPassword());
+
+        try {
+            Participante p = new ParticipanteDao().authenticate(email, senha);
+            if (p != null)
+            {
+                JOptionPane.showMessageDialog(null,"Bem vindo, " + p.getNome());
+                return;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
+            return;
+        }
+
+        try {
+            Organizador o = new OrganizadorDao().authenticate(email, senha);
+            if (o != null)
+            {
+                JOptionPane.showMessageDialog(null,"Bem vindo, " + o.getNome());
+                return;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
+            return;
+        }
+
+        try {
+            Administrador a = new AdministradorDao().authenticate(email, senha);
+            if (a != null)
+            {
+                JOptionPane.showMessageDialog(null,"Bem vindo, " + a.getNome());
+                return;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
+            return;
+        }
+
+        JOptionPane.showMessageDialog(null, "Email ou senha, incorreto!");
+
+    }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**
      * @param args the command line arguments
