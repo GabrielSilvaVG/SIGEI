@@ -4,15 +4,12 @@
  */
 package com.sigei.View.LoginRegister;
 
-import com.sigei.dao.usuariosDao.AdministradorDao;
-import com.sigei.dao.usuariosDao.OrganizadorDao;
-import com.sigei.dao.usuariosDao.ParticipanteDao;
-import com.sigei.model.usuarios.Administrador;
-import com.sigei.model.usuarios.Organizador;
-import com.sigei.model.usuarios.Participante;
+import com.sigei.Controller.LoginController;
+import com.sigei.model.usuarios.Usuario;
 
 import javax.swing.*;
-import java.sql.SQLException;
+import java.awt.event.MouseEvent;
+
 
 /**
  *
@@ -26,6 +23,7 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        this.setResizable(false);
     }
 
     /**
@@ -43,8 +41,6 @@ public class LoginForm extends javax.swing.JFrame {
         bglower = new javax.swing.JPanel();
         bgupper = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabelClose = new javax.swing.JLabel();
-        jLabelmin = new javax.swing.JLabel();
         TextoEmail = new javax.swing.JLabel();
         fieldEmail = new javax.swing.JTextField();
         TextoSenha = new javax.swing.JLabel();
@@ -80,7 +76,6 @@ public class LoginForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setUndecorated(true);
 
         bglower.setBackground(new java.awt.Color(45, 55, 72));
 
@@ -88,52 +83,23 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login SIGEI");
-
-        jLabelClose.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jLabelClose.setForeground(new java.awt.Color(229, 62, 62));
-        jLabelClose.setText("X");
-        jLabelClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelClose.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelCloseMouseClicked(evt);
-            }
-        });
-
-        jLabelmin.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabelmin.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelmin.setText("-");
-        jLabelmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelmin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelminMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout bgupperLayout = new javax.swing.GroupLayout(bgupper);
         bgupper.setLayout(bgupperLayout);
         bgupperLayout.setHorizontalGroup(
             bgupperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgupperLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(97, 97, 97)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                .addComponent(jLabelmin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelClose)
-                .addGap(16, 16, 16))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bgupperLayout.setVerticalGroup(
             bgupperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgupperLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(bgupperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgupperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelClose)
-                        .addComponent(jLabelmin, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         TextoEmail.setBackground(new java.awt.Color(237, 242, 247));
@@ -262,14 +228,6 @@ public class LoginForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabelCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCloseMouseClicked
-            this.setVisible(false);
-    }//GEN-LAST:event_jLabelCloseMouseClicked
-
-    private void jLabelminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelminMouseClicked
-        this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_jLabelminMouseClicked
-
     private void fieldSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldSenhaActionPerformed
@@ -286,17 +244,42 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RegisterButtonOrganizadorMouseEntered
 
-    private void RegisterButtonParticipanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonParticipanteMouseClicked
-        RegisterParticipanteForm rp = new RegisterParticipanteForm(this);
-        rp.setVisible(true);
-        rp.setLocationRelativeTo(this);
+    private void RegisterButtonParticipanteMouseClicked(MouseEvent evt) {
+        JFrame frame = new JFrame("Registrar Participante");
+        RegisterParticipante rp = new RegisterParticipante();
+        frame.add(rp);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(this);
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                LoginForm.this.setVisible(true);
+            }
+        });
+
+        frame.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_RegisterButtonParticipanteMouseClicked
+    }                                                       
 
     private void RegisterButtonOrganizadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonOrganizadorMouseClicked
-        RegisterOrganizadorForm ro = new RegisterOrganizadorForm(this); // Passa referência do LoginForm
-        ro.setVisible(true);
-        ro.setLocationRelativeTo(this);
+        JFrame frame = new JFrame("Registrar Organizador");
+        RegisterOrganizador rp = new RegisterOrganizador();
+        frame.add(rp);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(this);
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                LoginForm.this.setVisible(true);
+            }
+        });
+        frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_RegisterButtonOrganizadorMouseClicked
 
@@ -305,42 +288,11 @@ public class LoginForm extends javax.swing.JFrame {
         String senha = new String(fieldSenha.getPassword());
 
         try {
-            Participante p = new ParticipanteDao().authenticate(email, senha);
-            if (p != null)
-            {
-                JOptionPane.showMessageDialog(null,"Bem vindo, " + p.getNome());
-                return;
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
-            return;
+            Usuario u = new LoginController().authenticate(email, senha);
+            JOptionPane.showMessageDialog(this, "Bem-Vindo, "+u.getNome() + "!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-
-        try {
-            Organizador o = new OrganizadorDao().authenticate(email, senha);
-            if (o != null)
-            {
-                JOptionPane.showMessageDialog(null,"Bem vindo, " + o.getNome());
-                return;
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
-            return;
-        }
-
-        try {
-            Administrador a = new AdministradorDao().authenticate(email, senha);
-            if (a != null)
-            {
-                JOptionPane.showMessageDialog(null,"Bem vindo, " + a.getNome());
-                return;
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
-            return;
-        }
-
-        JOptionPane.showMessageDialog(null, "Email ou senha, incorreto!");
 
     }//GEN-LAST:event_LoginButtonActionPerformed
 
@@ -382,8 +334,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPasswordField fieldSenha;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelClose;
-    private javax.swing.JLabel jLabelmin;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
