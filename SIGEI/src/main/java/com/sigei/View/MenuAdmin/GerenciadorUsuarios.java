@@ -273,7 +273,7 @@ public class GerenciadorUsuarios extends javax.swing.JPanel {
 
                 JOptionPane.showMessageDialog(this, "Usuário apagado com sucesso!");
 
-            } catch (Exception e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(this, "Erro ao apagar usuário!");
             }
         }
@@ -292,14 +292,13 @@ public class GerenciadorUsuarios extends javax.swing.JPanel {
         ArrayList<Usuario> usuarios = null;
 
         try {
-            // Você precisará criar este método no MenuAdminController
             usuarios = new MenuAdminController().buscarUsuariosPorNome(nomePesquisado);
         } catch (SQLException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar-se com o banco!");
             return;
         }
 
-        modelo.setRowCount(0); // Limpa a tabela
+        modelo.setRowCount(0);
 
         if (usuarios != null) {
             for (Usuario u : usuarios) {

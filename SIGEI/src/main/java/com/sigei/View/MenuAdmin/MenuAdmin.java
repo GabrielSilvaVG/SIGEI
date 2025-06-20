@@ -67,7 +67,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         GerenciarUsuarioBotao = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        GerenciarEventosBotao = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel3");
 
@@ -197,20 +197,27 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(45, 55, 72));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 121, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Gerenciar Eventos");
+        GerenciarEventosBotao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        GerenciarEventosBotao.setForeground(new java.awt.Color(255, 121, 0));
+        GerenciarEventosBotao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        GerenciarEventosBotao.setText("Gerenciar Eventos");
+        GerenciarEventosBotao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GerenciarEventosBotao.setDoubleBuffered(true);
+        GerenciarEventosBotao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GerenciarEventosBotaoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+            .addComponent(GerenciarEventosBotao, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+            .addComponent(GerenciarEventosBotao, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -282,6 +289,15 @@ public class MenuAdmin extends javax.swing.JFrame {
         tela.setResizable(false);
     }//GEN-LAST:event_GerenciarUsuarioBotaoMouseClicked
 
+    private void GerenciarEventosBotaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GerenciarEventosBotaoMouseClicked
+        JFrame tela = new JFrame("Gerenciar Eventos");
+        tela.add(new GerenciarEventos());
+        tela.pack();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
+        tela.setResizable(false);
+    }//GEN-LAST:event_GerenciarEventosBotaoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -308,15 +324,13 @@ public class MenuAdmin extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BotaoGerenciarUsuario1;
-    private javax.swing.JLabel BotaoGerenciarUsuario2;
     private javax.swing.JLabel BotaoSair;
+    private javax.swing.JLabel GerenciarEventosBotao;
     private javax.swing.JLabel GerenciarUsuarioBotao;
     private javax.swing.JLabel Icon;
     private javax.swing.JLabel ParticipantesInscritos;
     private javax.swing.JLabel TextoSigei;
     private javax.swing.JLabel eventosAtivos;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPInformaçoesGerais;
@@ -324,8 +338,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     // End of variables declaration//GEN-END:variables
 }

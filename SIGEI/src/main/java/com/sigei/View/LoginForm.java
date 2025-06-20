@@ -116,6 +116,11 @@ public class LoginForm extends javax.swing.JFrame {
         fieldEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fieldEmail.setForeground(new java.awt.Color(247, 250, 252));
         fieldEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fieldEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldEmailActionPerformed(evt);
+            }
+        });
 
         TextoSenha.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         TextoSenha.setForeground(new java.awt.Color(237, 242, 247));
@@ -319,6 +324,10 @@ public class LoginForm extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_LoginButtonActionPerformed
+
+    private void fieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldEmailActionPerformed
 
     /**
      * @param args the command line arguments

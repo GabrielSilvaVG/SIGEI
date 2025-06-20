@@ -4,6 +4,15 @@
  */
 package com.sigei.View.MenuAdmin;
 
+import com.sigei.Controller.MenuAdminController;
+import com.sigei.model.evento.Evento;
+import com.sigei.model.usuarios.Usuario;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  *
  * @author gabri
@@ -15,6 +24,39 @@ public class GerenciarEventos extends javax.swing.JPanel {
      */
     public GerenciarEventos() {
         initComponents();
+        listarEventos();
+    }
+
+    public void listarEventos () {
+
+        DefaultTableModel modelo = (DefaultTableModel) ListaEventos.getModel();
+
+        ArrayList<Evento> eventos = null;
+
+        try {
+            eventos = new MenuAdminController().getEventos();
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar-se com o banco!");
+        }
+
+        modelo.setRowCount(0);
+
+        if (eventos != null) {
+
+            for (Evento e : eventos) {
+                modelo.addRow(new Object[]{
+                    e.getId(),
+                    e.getNome(),
+                    e.getLocal(),
+                    e.getDataEvento(),
+                    e.getVagasOcupadas() + "/" + e.getVagasTotal(),
+                    e.getPalestrante(),
+                    e.getStatusEvento().toString()
+                });
+            }
+
+        }
+
     }
 
     /**
@@ -26,19 +68,314 @@ public class GerenciarEventos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListaEventos = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        Finalizar = new javax.swing.JButton();
+        jButtonRelatorio = new javax.swing.JButton();
+        Excluir = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        PesquisarNome = new javax.swing.JTextField();
+        Pesquisar = new javax.swing.JButton();
+
+        jLabel1.setText("jLabel1");
+
+        jCheckBox1.setText("jCheckBox1");
+
+        setBackground(new java.awt.Color(187, 187, 187));
+
+        ListaEventos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Nome", "Local", "Data", "Vagas", "Palestrante", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(ListaEventos);
+
+        jPanel1.setBackground(new java.awt.Color(45, 55, 72));
+
+        jLabel2.setBackground(new java.awt.Color(255, 121, 0));
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 121, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Gerenciador de Eventos");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+        );
+
+        Finalizar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        Finalizar.setText("Finalizar");
+        Finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinalizarActionPerformed(evt);
+            }
+        });
+
+        jButtonRelatorio.setText("Relatorio");
+        jButtonRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRelatorioActionPerformed(evt);
+            }
+        });
+
+        Excluir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        Excluir.setText("Excluir");
+        Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(187, 187, 187));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Nome:");
+
+        PesquisarNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PesquisarNomeActionPerformed(evt);
+            }
+        });
+
+        Pesquisar.setText("Pesquisar");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Pesquisar)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pesquisar))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
+        int linhaSelecionada = ListaEventos.getSelectedRow();
+
+
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um evento para excluir!");
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) ListaEventos.getModel();
+
+        int IDEvento = (int) modelo.getValueAt(linhaSelecionada, 0);
+        String nomeEvento = (String) modelo.getValueAt(linhaSelecionada, 1);
+
+        int confirmacao = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que deseja apagar o Evento: " + nomeEvento + "?",
+                "Confirmar exclusão",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacao == JOptionPane.YES_OPTION) {
+
+            try {
+                new MenuAdminController().apagarEvento(IDEvento);
+                modelo.removeRow(linhaSelecionada);// Remove da tabela
+                JOptionPane.showMessageDialog(this, "Usuário apagado com sucesso!");
+            } catch (SQLException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao apagar usuário!");            }
+        }
+    }//GEN-LAST:event_ExcluirActionPerformed
+
+    private void PesquisarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesquisarNomeActionPerformed
+        String nomePesquisado = PesquisarNome.getText().trim();
+
+        if (nomePesquisado.isEmpty()) {
+            listarEventos();
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) ListaEventos.getModel();
+        ArrayList<Evento> eventos = null;
+
+        try {
+            eventos = new MenuAdminController().buscarEventosPorNome(nomePesquisado);
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar-se com o banco!");
+            return;
+        }
+
+        modelo.setRowCount(0);
+
+        if (eventos != null) {
+
+            for (Evento e : eventos) {
+                modelo.addRow(new Object[]{
+                        e.getId(),
+                        e.getNome(),
+                        e.getLocal(),
+                        e.getDataEvento(),
+                        e.getVagasOcupadas() + "/" + e.getVagasTotal(),
+                        e.getPalestrante(),
+                        e.getStatusEvento().toString()
+                });
+            }
+
+        }
+
+    }//GEN-LAST:event_PesquisarNomeActionPerformed
+
+    private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
+        int linhaSelecionada = ListaEventos.getSelectedRow();
+    
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um evento para apagar!");
+            return;
+        }
+        
+        DefaultTableModel modelo = (DefaultTableModel) ListaEventos.getModel();
+
+        int idEvento = (int) modelo.getValueAt(linhaSelecionada, 0);
+        String nome = (String) modelo.getValueAt(linhaSelecionada, 1);
+        int confirmacao = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que deseja Finalizar o evento: " + nome + "?",
+                "Confirmar exclusão",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            try {
+
+                new MenuAdminController().finalizarEvento(idEvento);
+                JOptionPane.showMessageDialog(this, "Evento finalizado com sucesso!");
+                listarEventos();
+
+            } catch (SQLException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao finalizar o evento!");
+            }
+        }
+
+    }//GEN-LAST:event_FinalizarActionPerformed
+
+    private void jButtonRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRelatorioActionPerformed
+        int linhaSelecionada = ListaEventos.getSelectedRow();
+
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um Evento para gerar um relatorio!");
+            return;
+        }
+        DefaultTableModel modelo = (DefaultTableModel) ListaEventos.getModel();
+        int idEvento = (int) modelo.getValueAt(linhaSelecionada, 0);
+
+        try {
+            Evento e = new MenuAdminController().getEvento(idEvento);
+            JFrame tela = new JFrame("Relatorio Evento");
+            tela.add(new RelatorioEvento(e));
+            tela.pack();
+            tela.setVisible(true);
+            tela.setLocationRelativeTo(null);
+            tela.setResizable(false);
+        } catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o banco!");
+        }
+
+    }//GEN-LAST:event_jButtonRelatorioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Excluir;
+    private javax.swing.JButton Finalizar;
+    private javax.swing.JTable ListaEventos;
+    private javax.swing.JButton Pesquisar;
+    private javax.swing.JTextField PesquisarNome;
+    private javax.swing.JButton jButtonRelatorio;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
