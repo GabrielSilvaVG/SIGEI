@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.sigei.View.LoginRegister;
+package com.sigei.View.Register;
 
 import com.sigei.Controller.RegisterOrgController;
 import com.sigei.model.usuarios.Organizador;

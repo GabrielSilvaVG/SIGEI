@@ -2,9 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.sigei.View.LoginRegister;
+package com.sigei.View;
 
 import com.sigei.Controller.LoginController;
+import com.sigei.View.MenuAdmin.MenuAdmin;
+import com.sigei.View.MenuOrganizador.MenuOrgaizador;
+import com.sigei.View.MenuParticipante.MenuPaticipante;
+import com.sigei.View.Register.RegisterOrganizador;
+import com.sigei.View.Register.RegisterParticipante;
 import com.sigei.model.usuarios.Usuario;
 
 import javax.swing.*;
@@ -90,10 +95,10 @@ public class LoginForm extends javax.swing.JFrame {
         bgupper.setLayout(bgupperLayout);
         bgupperLayout.setHorizontalGroup(
             bgupperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgupperLayout.createSequentialGroup()
-                .addGap(97, 97, 97)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgupperLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(98, 98, 98))
         );
         bgupperLayout.setVerticalGroup(
             bgupperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,8 +293,18 @@ public class LoginForm extends javax.swing.JFrame {
         String senha = new String(fieldSenha.getPassword());
 
         try {
-            Usuario u = new LoginController().authenticate(email, senha);
+            Usuario u = new LoginController().autenticar(email, senha);
             JOptionPane.showMessageDialog(this, "Bem-Vindo, "+u.getNome() + "!");
+            int i = new LoginController().tipoUsuario(u);
+
+            if (i==1)
+                new MenuPaticipante().setVisible(true);
+            if (i==2)
+                new MenuOrgaizador().setVisible(true);
+            if (i==3)
+                new MenuAdmin().setVisible(true);
+
+            this.dispose();// Fecha a janela de login
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
