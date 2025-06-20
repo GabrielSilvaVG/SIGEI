@@ -39,7 +39,6 @@ public class MenuOrgaizador extends javax.swing.JFrame {
         Icon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BotaoLogOut = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -60,7 +59,7 @@ public class MenuOrgaizador extends javax.swing.JFrame {
         BotaoLogOut.setForeground(new java.awt.Color(255, 121, 0));
         BotaoLogOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BotaoLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logout.png"))); // NOI18N
-        BotaoLogOut.setText("LogOut");
+        BotaoLogOut.setText("Sair");
         BotaoLogOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotaoLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -92,25 +91,17 @@ public class MenuOrgaizador extends javax.swing.JFrame {
                 .addGap(44, 44, 44))
         );
 
-        jLabel2.setText("Organizador");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(251, 251, 251))
+                .addContainerGap(686, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -173,7 +164,6 @@ public class MenuOrgaizador extends javax.swing.JFrame {
     private javax.swing.JLabel BotaoLogOut;
     private javax.swing.JLabel Icon;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

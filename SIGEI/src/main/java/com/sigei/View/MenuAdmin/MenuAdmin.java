@@ -4,7 +4,11 @@
  */
 package com.sigei.View.MenuAdmin;
 
+import com.sigei.Controller.MenuAdminController;
 import com.sigei.View.LoginForm;
+
+import javax.swing.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -19,7 +23,26 @@ public class MenuAdmin extends javax.swing.JFrame {
      */
     public MenuAdmin() {
         initComponents();
+        carregarInformacoesGerais();
     }
+
+
+
+    private void carregarInformacoesGerais() {
+
+        try {
+            int eventosNaoFinalizados  = new MenuAdminController().getEventosNFinalizados();
+            int iscricoesAtivas = new MenuAdminController().getIscricoesAtivas();
+
+            eventosAtivos.setText("Eventos ativos: " + eventosNaoFinalizados);
+            ParticipantesInscritos.setText("Participantes inscritos:: " + iscricoesAtivas);
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar-se com o banco!");
+        }
+
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,14 +53,23 @@ public class MenuAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         Icon = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        BotaoLogOut = new javax.swing.JLabel();
+        TextoSigei = new javax.swing.JLabel();
+        BotaoSair = new javax.swing.JLabel();
         jPInformaçoesGerais = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        ParticipantesInscritos = new javax.swing.JLabel();
+        eventosAtivos = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        GerenciarUsuarioBotao = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+
+        jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -49,20 +81,20 @@ public class MenuAdmin extends javax.swing.JFrame {
         Icon.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon.png"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 121, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SIGEI");
+        TextoSigei.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        TextoSigei.setForeground(new java.awt.Color(255, 121, 0));
+        TextoSigei.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoSigei.setText("SIGEI");
 
-        BotaoLogOut.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        BotaoLogOut.setForeground(new java.awt.Color(255, 121, 0));
-        BotaoLogOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        BotaoLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logout.png"))); // NOI18N
-        BotaoLogOut.setText("LogOut");
-        BotaoLogOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotaoLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+        BotaoSair.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        BotaoSair.setForeground(new java.awt.Color(255, 121, 0));
+        BotaoSair.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BotaoSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logout.png"))); // NOI18N
+        BotaoSair.setText("Sair");
+        BotaoSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotaoSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotaoLogOutMouseClicked(evt);
+                BotaoSairMouseClicked(evt);
             }
         });
 
@@ -73,9 +105,9 @@ public class MenuAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(67, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BotaoLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TextoSigei, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(65, 65, 65))
         );
@@ -83,11 +115,11 @@ public class MenuAdmin extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel1)
+                .addComponent(TextoSigei)
                 .addGap(18, 18, 18)
                 .addComponent(Icon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
-                .addComponent(BotaoLogOut)
+                .addComponent(BotaoSair)
                 .addGap(47, 47, 47))
         );
 
@@ -98,6 +130,14 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Informações Gerais");
 
+        ParticipantesInscritos.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        ParticipantesInscritos.setForeground(new java.awt.Color(0, 0, 0));
+        ParticipantesInscritos.setText("Participantes inscritos:");
+
+        eventosAtivos.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        eventosAtivos.setForeground(new java.awt.Color(0, 0, 0));
+        eventosAtivos.setText("Eventos ativos:");
+
         javax.swing.GroupLayout jPInformaçoesGeraisLayout = new javax.swing.GroupLayout(jPInformaçoesGerais);
         jPInformaçoesGerais.setLayout(jPInformaçoesGeraisLayout);
         jPInformaçoesGeraisLayout.setHorizontalGroup(
@@ -106,13 +146,71 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addContainerGap(144, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(143, 143, 143))
+            .addGroup(jPInformaçoesGeraisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ParticipantesInscritos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPInformaçoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPInformaçoesGeraisLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(eventosAtivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPInformaçoesGeraisLayout.setVerticalGroup(
             jPInformaçoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPInformaçoesGeraisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                .addComponent(ParticipantesInscritos)
+                .addGap(86, 86, 86))
+            .addGroup(jPInformaçoesGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPInformaçoesGeraisLayout.createSequentialGroup()
+                    .addGap(78, 78, 78)
+                    .addComponent(eventosAtivos)
+                    .addContainerGap(157, Short.MAX_VALUE)))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(45, 55, 72));
+
+        GerenciarUsuarioBotao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        GerenciarUsuarioBotao.setForeground(new java.awt.Color(255, 121, 0));
+        GerenciarUsuarioBotao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        GerenciarUsuarioBotao.setText("Gerenciar Usuarios");
+        GerenciarUsuarioBotao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GerenciarUsuarioBotao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GerenciarUsuarioBotaoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(GerenciarUsuarioBotao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(GerenciarUsuarioBotao, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+        );
+
+        jPanel7.setBackground(new java.awt.Color(45, 55, 72));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 121, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Gerenciar Eventos");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -121,17 +219,26 @@ public class MenuAdmin extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
-                .addComponent(jPInformaçoesGerais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 159, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPInformaçoesGerais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(129, 129, 129))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPInformaçoesGerais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -161,10 +268,19 @@ public class MenuAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotaoLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotaoLogOutMouseClicked
+    private void BotaoSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotaoSairMouseClicked
         this.dispose();
         new LoginForm().setVisible(true);
-    }//GEN-LAST:event_BotaoLogOutMouseClicked
+    }//GEN-LAST:event_BotaoSairMouseClicked
+
+    private void GerenciarUsuarioBotaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GerenciarUsuarioBotaoMouseClicked
+        JFrame tela = new JFrame("Gerenciar Usuários");
+        tela.add(new GerenciadorUsuarios());
+        tela.pack();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
+        tela.setResizable(false);
+    }//GEN-LAST:event_GerenciarUsuarioBotaoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -192,13 +308,24 @@ public class MenuAdmin extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BotaoLogOut;
+    private javax.swing.JLabel BotaoGerenciarUsuario1;
+    private javax.swing.JLabel BotaoGerenciarUsuario2;
+    private javax.swing.JLabel BotaoSair;
+    private javax.swing.JLabel GerenciarUsuarioBotao;
     private javax.swing.JLabel Icon;
+    private javax.swing.JLabel ParticipantesInscritos;
+    private javax.swing.JLabel TextoSigei;
+    private javax.swing.JLabel eventosAtivos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPInformaçoesGerais;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     // End of variables declaration//GEN-END:variables
 }

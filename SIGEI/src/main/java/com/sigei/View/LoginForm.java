@@ -297,12 +297,21 @@ public class LoginForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Bem-Vindo, "+u.getNome() + "!");
             int i = new LoginController().tipoUsuario(u);
 
-            if (i==1)
-                new MenuPaticipante().setVisible(true);
-            if (i==2)
-                new MenuOrgaizador().setVisible(true);
-            if (i==3)
-                new MenuAdmin().setVisible(true);
+            if (i==1) {
+                MenuPaticipante menu = new MenuPaticipante();
+                menu.setLocationRelativeTo(null); // Centraliza na tela
+                menu.setVisible(true);
+            }
+            if (i==2) {
+                MenuOrgaizador menu = new MenuOrgaizador();
+                menu.setLocationRelativeTo(null);
+                menu.setVisible(true);
+            }
+            if (i==3) {
+                MenuAdmin menu = new MenuAdmin();
+                menu.setLocationRelativeTo(null);
+                menu.setVisible(true);
+            }
 
             this.dispose();// Fecha a janela de login
         } catch (Exception e) {
