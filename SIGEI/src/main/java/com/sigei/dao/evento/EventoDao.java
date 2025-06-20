@@ -75,6 +75,8 @@ public class EventoDao implements IGenericsDao<Evento, Integer> {
         String sql = "SELECT idevento,nome,tipo,local,dataEvento,vagasTotal,vagasOcupadas,palestrante,organizadorID, statusEvento\n" +
                     "FROM evento where idevento = ?;";
 
+        new InscricaoDao().deleteAllFromEvent(key);
+
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, key);
         ResultSet rs = pst.executeQuery();

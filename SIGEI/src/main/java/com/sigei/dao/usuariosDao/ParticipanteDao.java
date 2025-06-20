@@ -1,5 +1,6 @@
 package com.sigei.dao.usuariosDao;
 
+import com.sigei.dao.evento.InscricaoDao;
 import com.sigei.dao.interfaces.IGenericsDao;
 import com.sigei.dao.conexao.ConnectionFactory;
 import com.sigei.model.usuarios.Participante;
@@ -52,6 +53,8 @@ public class ParticipanteDao implements IGenericsDao<Participante, Integer> {
     public void delete(Integer key) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnection();
         String sql = "DELETE FROM usuario WHERE idusuario = ? AND tipoUsuario = 'PARTICIPANTE';";
+
+        new InscricaoDao().deleteAllFromPart(key);
 
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, key);

@@ -1,6 +1,7 @@
 package com.sigei.dao.usuariosDao;
 
 import com.sigei.dao.evento.EventoDao;
+import com.sigei.dao.evento.InscricaoDao;
 import com.sigei.dao.interfaces.IGenericsDao;
 import com.sigei.dao.conexao.ConnectionFactory;
 import com.sigei.model.usuarios.Organizador;
@@ -53,6 +54,8 @@ public class OrganizadorDao implements IGenericsDao<Organizador, Integer> {
         Connection c = ConnectionFactory.getConnection();
         String sql = "DELETE FROM usuario WHERE idusuario = ? AND tipoUsuario = 'ORGANIZADOR';";
 
+
+        new InscricaoDao().deleteAllFromOrgEvents(key);
         new EventoDao().deleteAllFromOrg(key);
 
         PreparedStatement pst = c.prepareStatement(sql);

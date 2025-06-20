@@ -156,4 +156,37 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
     }
 
 
+    public void deleteAllFromPart(Integer key) throws SQLException, ClassNotFoundException {
+
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "DELETE FROM inscricao\n" +
+                "WHERE participanteID = ?;\n";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, key);
+        pst.execute();
+
+    }
+
+    public void deleteAllFromOrgEvents(Integer key) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "DELETE inscricao FROM inscricao " +
+                "INNER JOIN evento ON inscricao.eventoID = evento.idevento " +
+                "WHERE evento.organizadorID = ?";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, key);
+        pst.execute();
+    }
+
+    public void deleteAllFromEvent(Integer key) throws SQLException, ClassNotFoundException {
+
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "DELETE FROM inscricao\n" +
+                    "WHERE EventoID=?;\n";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, key);
+        pst.execute();
+    }
 }
