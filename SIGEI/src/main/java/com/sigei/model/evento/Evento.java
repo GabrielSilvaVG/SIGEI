@@ -1,15 +1,13 @@
 package com.sigei.model.evento;
 
 
-import com.sigei.dao.evento.EventoDao;
 import com.sigei.model.enums.EStatusEvento;
 import com.sigei.model.usuarios.Organizador;
-import com.sigei.model.usuarios.Participante;
 
-import java.sql.SQLException;
+
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class Evento {
 

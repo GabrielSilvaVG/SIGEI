@@ -10,6 +10,7 @@ import com.sigei.View.MenuOrganizador.MenuOrgaizador;
 import com.sigei.View.MenuParticipante.MenuPaticipante;
 import com.sigei.View.Register.RegisterOrganizador;
 import com.sigei.View.Register.RegisterParticipante;
+import com.sigei.model.usuarios.Organizador;
 import com.sigei.model.usuarios.Participante;
 import com.sigei.model.usuarios.Usuario;
 
@@ -116,6 +117,7 @@ public class LoginForm extends javax.swing.JFrame {
         fieldEmail.setBackground(new java.awt.Color(74, 85, 104));
         fieldEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fieldEmail.setForeground(new java.awt.Color(247, 250, 252));
+        fieldEmail.setText("organizadorteste@gmail");
         fieldEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         fieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +132,7 @@ public class LoginForm extends javax.swing.JFrame {
         fieldSenha.setBackground(new java.awt.Color(74, 85, 104));
         fieldSenha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fieldSenha.setForeground(new java.awt.Color(247, 250, 252));
+        fieldSenha.setText("12345678");
         fieldSenha.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         fieldSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,7 +312,7 @@ public class LoginForm extends javax.swing.JFrame {
                 menu.setVisible(true);
             }
             if (i==2) {
-                MenuOrgaizador menu = new MenuOrgaizador();
+                MenuOrgaizador menu = new MenuOrgaizador((Organizador) u);
                 menu.setLocationRelativeTo(null);
                 menu.setVisible(true);
             }

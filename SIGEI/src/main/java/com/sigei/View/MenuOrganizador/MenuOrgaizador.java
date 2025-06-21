@@ -4,10 +4,17 @@
  */
 package com.sigei.View.MenuOrganizador;
 
+import com.sigei.Controller.MenuOrgController;
 import com.sigei.View.LoginForm;
 import com.sigei.View.MenuAdmin.MenuAdmin;
+import com.sigei.model.evento.Evento;
+import com.sigei.model.usuarios.Organizador;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,13 +23,47 @@ import javax.swing.*;
 public class MenuOrgaizador extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuAdmin.class.getName());
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    Organizador o;
 
-    /**
-     * Creates new form MenuPrincipal
-     */
-    public MenuOrgaizador() {
+    public MenuOrgaizador(Organizador o) {
         initComponents();
+        this.o=o;
+        ListarEventos();
     }
+
+    public void ListarEventos() {
+        DefaultTableModel modelo = (DefaultTableModel) TabelaEventos.getModel();
+
+        ArrayList<Evento> eventos = null;
+
+        try {
+            eventos = new MenuOrgController().getEventos(o);
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar-se com o banco!");
+        }
+
+        modelo.setRowCount(0);
+
+        if (eventos != null) {
+
+            for (Evento e : eventos) {
+                modelo.addRow(new Object[]{
+                        e.getId(),
+                        e.getNome(),
+                        e.getTipo(),
+                        e.getLocal(),
+                        e.getDataEvento().format(formatter),
+                        e.getVagasOcupadas() + "/" + e.getVagasTotal(),
+                        e.getPalestrante(),
+                        e.getStatusEvento().toString()
+                });
+            }
+
+        }
+
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,6 +80,12 @@ public class MenuOrgaizador extends javax.swing.JFrame {
         Icon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BotaoLogOut = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TabelaEventos = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        JButtonFinalizar = new javax.swing.JButton();
+        jButtonNovoEvento = new javax.swing.JButton();
+        JButtonExcluir1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -86,10 +133,73 @@ public class MenuOrgaizador extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(Icon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                 .addComponent(BotaoLogOut)
                 .addGap(44, 44, 44))
         );
+
+        TabelaEventos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "id", "Nome", "Tipo", "Local", "Data", "Vagas", "Palestrante", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TabelaEventos);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Gerenciador de Eventos");
+
+        JButtonFinalizar.setBackground(new java.awt.Color(45, 55, 72));
+        JButtonFinalizar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        JButtonFinalizar.setForeground(new java.awt.Color(255, 255, 255));
+        JButtonFinalizar.setText("Finalizar");
+        JButtonFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonFinalizarActionPerformed(evt);
+            }
+        });
+
+        jButtonNovoEvento.setBackground(new java.awt.Color(45, 55, 72));
+        jButtonNovoEvento.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButtonNovoEvento.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonNovoEvento.setText("Novo");
+        jButtonNovoEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoEventoActionPerformed(evt);
+            }
+        });
+
+        JButtonExcluir1.setBackground(new java.awt.Color(45, 55, 72));
+        JButtonExcluir1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        JButtonExcluir1.setForeground(new java.awt.Color(255, 255, 255));
+        JButtonExcluir1.setText("Excluir");
+        JButtonExcluir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonExcluir1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -97,11 +207,32 @@ public class MenuOrgaizador extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(686, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jButtonNovoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(112, 112, 112)
+                        .addComponent(JButtonFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(109, 109, 109)
+                        .addComponent(JButtonExcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonNovoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JButtonFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JButtonExcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -135,6 +266,79 @@ public class MenuOrgaizador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_BotaoLogOutMouseClicked
 
+    private void JButtonExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluir1ActionPerformed
+        int linhaSelecionada = TabelaEventos.getSelectedRow();
+
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um evento para excluir!");
+            return;
+        }
+        DefaultTableModel modelo = (DefaultTableModel) TabelaEventos.getModel();
+
+        int IDEvento = (int) modelo.getValueAt(linhaSelecionada, 0);
+        String nomeEvento = (String) modelo.getValueAt(linhaSelecionada, 1);
+
+        int confirmacao = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que deseja apagar o Evento: " + nomeEvento + "?",
+                "Confirmar exclusão",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacao == JOptionPane.YES_OPTION) {
+
+            try {
+                new MenuOrgController().apagarEvento(IDEvento);
+                modelo.removeRow(linhaSelecionada);// Remove da tabela
+                JOptionPane.showMessageDialog(this, "Evento apagado com sucesso!");
+            } catch (SQLException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao apagar o Evento!");            }
+        }
+    }//GEN-LAST:event_JButtonExcluir1ActionPerformed
+
+    private void JButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonFinalizarActionPerformed
+        int linhaSelecionada = TabelaEventos.getSelectedRow();
+
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um evento para apagar!");
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) TabelaEventos.getModel();
+
+        int idEvento = (int) modelo.getValueAt(linhaSelecionada, 0);
+        String nome = (String) modelo.getValueAt(linhaSelecionada, 1);
+        int confirmacao = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que deseja Finalizar o evento: " + nome + "?",
+                "Confirmar exclusão",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            try {
+
+                new MenuOrgController().finalizarEvento(idEvento);
+                JOptionPane.showMessageDialog(this, "Evento finalizado com sucesso!");
+                ListarEventos();
+
+            } catch (SQLException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao finalizar o evento!");
+            }
+        }
+
+
+    }//GEN-LAST:event_JButtonFinalizarActionPerformed
+
+    private void jButtonNovoEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoEventoActionPerformed
+        JFrame tela = new JFrame("Gerenciar Usuários");
+        tela.add(new NovoEvento(o, this));
+        tela.pack();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
+        tela.setResizable(false);
+    }//GEN-LAST:event_jButtonNovoEventoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -163,9 +367,15 @@ public class MenuOrgaizador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BotaoLogOut;
     private javax.swing.JLabel Icon;
+    private javax.swing.JButton JButtonExcluir1;
+    private javax.swing.JButton JButtonFinalizar;
+    private javax.swing.JTable TabelaEventos;
+    private javax.swing.JButton jButtonNovoEvento;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
