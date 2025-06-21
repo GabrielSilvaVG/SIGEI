@@ -10,6 +10,7 @@ import com.sigei.View.MenuOrganizador.MenuOrgaizador;
 import com.sigei.View.MenuParticipante.MenuPaticipante;
 import com.sigei.View.Register.RegisterOrganizador;
 import com.sigei.View.Register.RegisterParticipante;
+import com.sigei.model.usuarios.Participante;
 import com.sigei.model.usuarios.Usuario;
 
 import javax.swing.*;
@@ -303,7 +304,7 @@ public class LoginForm extends javax.swing.JFrame {
             int i = new LoginController().tipoUsuario(u);
 
             if (i==1) {
-                MenuPaticipante menu = new MenuPaticipante();
+                MenuPaticipante menu = new MenuPaticipante((Participante) u);
                 menu.setLocationRelativeTo(null); // Centraliza na tela
                 menu.setVisible(true);
             }

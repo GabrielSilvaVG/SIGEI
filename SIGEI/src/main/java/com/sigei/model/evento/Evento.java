@@ -139,26 +139,6 @@ public class Evento {
     }
 
 
-    public String gerarRelatorio() throws SQLException, ClassNotFoundException {
-        StringBuilder sb = new StringBuilder();
-        ArrayList<Participante> participantes = new EventoDao().getAllParticipantFromEvent(this.id);
-
-        sb.append("RELATÓRIO DO EVENTO\n");
-        sb.append("===================\n");
-        sb.append("Título: ").append(this.nome).append("\n");
-        sb.append("Tipo: ").append(this.tipo).append("\n");
-        sb.append("Palestrante: ").append(this.palestrante).append("\n");
-        sb.append("Data do Evento: ").append(this.dataEvento.format(formatter)).append("\n");
-        sb.append("Status: ").append(this.statusEvento).append("\n");
-        sb.append("Organizador: ").append(this.getOrganizador().getNome()).append("\n\n");
-
-        sb.append("Participantes inscritos: ").append(participantes.size()).append("\n");
-       for (Participante i : participantes) {
-           sb.append("Nome: ").append(i.getNome()).append("\n");
-       }
-        return sb.toString();
-    }
-
     // Métodos auxiliares
 
     private void validarString(String campo, String nomeCampo) {

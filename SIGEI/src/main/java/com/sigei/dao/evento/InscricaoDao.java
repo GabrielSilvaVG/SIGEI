@@ -189,4 +189,14 @@ public class InscricaoDao implements IGenericsDao<Inscricao, Integer> {
         pst.setInt(1, key);
         pst.execute();
     }
+
+    public void deleteByEventoAndParticipante(int idEvento, int idParticipante) throws SQLException, ClassNotFoundException {
+        Connection c = ConnectionFactory.getConnection();
+        String sql = "DELETE FROM inscricao\n" +
+                "WHERE EventoID=? and participanteID = ?;\n";
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, idEvento);
+        pst.setInt(2, idParticipante);
+        pst.execute();
+    }
 }

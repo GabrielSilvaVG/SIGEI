@@ -102,8 +102,11 @@ public class EventoDao implements IGenericsDao<Evento, Integer> {
         ResultSet rs = pst.executeQuery();
         ArrayList<Evento> eventos = new ArrayList<>();
         while (rs.next()) {
+
+            LocalDateTime dataEvento = rs.getTimestamp("dataEvento").toLocalDateTime();
+
             Evento e = new Evento(new OrganizadorDao().findByKey(rs.getInt("organizadorID")), rs.getString("palestrante"),
-                    rs.getString("local"), (LocalDateTime) rs.getObject("dataEvento"), rs.getString("tipo"), rs.getInt("vagasTotal"), rs.getString("nome"));
+                    rs.getString("local"), dataEvento, rs.getString("tipo"), rs.getInt("vagasTotal"), rs.getString("nome"));
 
             e.setId(rs.getInt("idevento"));
             e.setVagasOcupadas(rs.getInt("vagasOcupadas"));
@@ -139,23 +142,30 @@ public class EventoDao implements IGenericsDao<Evento, Integer> {
         pst.execute();
     }
 
-    public ArrayList<Participante> getAllParticipantFromEvent(Integer key) throws SQLException, ClassNotFoundException {
+    public ArrayList<Evento> EventosParticipante(Integer key) throws SQLException, ClassNotFoundException {
         Connection c = ConnectionFactory.getConnection();
-        String sql = "SELECT idusuario,nome,email,senha,telefone,cpf\n" +
-                    "FROM usuario JOIN inscricao ON usuario.idusuario = inscricao.participanteID\n" +
-                    "WHERE inscricao.eventoID = ?;\n" +
-                    "\n";
+        String sql = "select idevento,evento.nome,tipo,local,dataEvento,vagasTotal,vagasOcupadas,palestrante,organizadorID,statusEvento from evento\n" +
+                "inner join inscricao on evento.idevento = inscricao.eventoID\n" +
+                "inner join usuario on inscricao.participanteID = usuario.idusuario\n" +
+                "where usuario.idusuario = ?;";
 
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, key);
         ResultSet rs = pst.executeQuery();
-        ArrayList<Participante> participantes = new ArrayList<>();
-        while(rs.next()) {
-            Participante p = new Participante(rs.getString("nome"), rs.getString("email"), rs.getString("senha"), rs.getString("telefone"), rs.getString("cpf"));
-            p.setId(rs.getInt("idusuario"));
-            participantes.add(p);
+        ArrayList<Evento> eventos = new ArrayList<>();
+        while (rs.next()) {
+
+            LocalDateTime dataEvento = rs.getTimestamp("dataEvento").toLocalDateTime();
+
+            Evento e = new Evento(new OrganizadorDao().findByKey(rs.getInt("organizadorID")), rs.getString("palestrante"),
+                    rs.getString("local"), dataEvento, rs.getString("tipo"), rs.getInt("vagasTotal"), rs.getString("nome"));
+
+            e.setId(rs.getInt("idevento"));
+            e.setVagasOcupadas(rs.getInt("vagasOcupadas"));
+            e.setStatusEvento(EStatusEvento.valueOf(rs.getString("statusEvento")));
+            eventos.add(e);
         }
-        return participantes;
+        return eventos;
     }
 
 }

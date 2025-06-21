@@ -11,6 +11,7 @@ import com.sigei.model.usuarios.Usuario;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,7 @@ import java.util.ArrayList;
  */
 public class GerenciarEventos extends javax.swing.JPanel {
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     /**
      * Creates new form GerenciarEventos
      */
@@ -48,7 +50,7 @@ public class GerenciarEventos extends javax.swing.JPanel {
                     e.getId(),
                     e.getNome(),
                     e.getLocal(),
-                    e.getDataEvento(),
+                    e.getDataEvento().format(formatter),
                     e.getVagasOcupadas() + "/" + e.getVagasTotal(),
                     e.getPalestrante(),
                     e.getStatusEvento().toString()
@@ -294,7 +296,7 @@ public class GerenciarEventos extends javax.swing.JPanel {
                         e.getId(),
                         e.getNome(),
                         e.getLocal(),
-                        e.getDataEvento(),
+                        e.getDataEvento().format(formatter),
                         e.getVagasOcupadas() + "/" + e.getVagasTotal(),
                         e.getPalestrante(),
                         e.getStatusEvento().toString()
