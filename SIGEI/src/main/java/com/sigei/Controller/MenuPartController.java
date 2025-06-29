@@ -44,10 +44,23 @@ public class MenuPartController {
     }
 
     public ArrayList<Evento> EventosParticipantes(Participante p) throws SQLException, ClassNotFoundException {
-
         return new EventoDao().EventosParticipante(p.getId());
-
     }
+
+    public ArrayList<Evento> EventosPartNaoFinalizados(Participante p) throws SQLException, ClassNotFoundException {
+
+        ArrayList<Evento> todosEventosParticipante = EventosParticipantes(p);
+
+        ArrayList<Evento> eventosNFinalizados = new ArrayList<>();
+
+        for (Evento e : todosEventosParticipante) {
+            if(!e.getStatusEvento().equals(EStatusEvento.FINALIZADO)){
+                eventosNFinalizados.add(e);
+            }
+        }
+        return eventosNFinalizados;
+    }
+
 
     public void GerarInscricao(int idEvento, Participante p) throws SQLException, ClassNotFoundException {
 

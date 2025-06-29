@@ -9,7 +9,6 @@ import com.sigei.View.LoginForm;
 import com.sigei.View.MenuAdmin.*;
 import com.sigei.model.evento.Evento;
 import com.sigei.model.usuarios.Participante;
-import com.sigei.model.usuarios.Usuario;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,8 +21,6 @@ import java.util.ArrayList;
  * @author gabri
  */
 public class MenuPaticipante extends javax.swing.JFrame {
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuAdmin.class.getName());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     /**
      * Creates new form MenuPrincipal
@@ -72,7 +69,7 @@ public class MenuPaticipante extends javax.swing.JFrame {
         ArrayList<Evento> eventos = null;
 
         try {
-            eventos = new MenuPartController().EventosParticipantes(p);
+            eventos = new MenuPartController().EventosPartNaoFinalizados(p);
         } catch (SQLException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar com o banco!");
         }
@@ -107,6 +104,7 @@ public class MenuPaticipante extends javax.swing.JFrame {
         Icon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BotaoLogOut = new javax.swing.JLabel();
+        botaoHistorico = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelaEventos = new javax.swing.JTable();
@@ -147,6 +145,14 @@ public class MenuPaticipante extends javax.swing.JFrame {
             }
         });
 
+        botaoHistorico.setBackground(new java.awt.Color(237, 242, 247));
+        botaoHistorico.setText("Historico");
+        botaoHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoHistoricoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -154,6 +160,7 @@ public class MenuPaticipante extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(67, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotaoLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Icon))
@@ -166,6 +173,8 @@ public class MenuPaticipante extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(Icon)
+                .addGap(88, 88, 88)
+                .addComponent(botaoHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BotaoLogOut)
                 .addGap(42, 42, 42))
@@ -332,12 +341,12 @@ public class MenuPaticipante extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -410,6 +419,15 @@ public class MenuPaticipante extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_InscreverseActionPerformed
 
+    private void botaoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoHistoricoActionPerformed
+        JFrame tela = new JFrame("Historico");
+        tela.add(new HistoricoParticipante(p));
+        tela.pack();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
+        tela.setResizable(false);
+    }//GEN-LAST:event_botaoHistoricoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -442,6 +460,7 @@ public class MenuPaticipante extends javax.swing.JFrame {
     private javax.swing.JLabel Icon;
     private javax.swing.JButton Inscreverse;
     private javax.swing.JTable TabelaEventos;
+    private javax.swing.JButton botaoHistorico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
