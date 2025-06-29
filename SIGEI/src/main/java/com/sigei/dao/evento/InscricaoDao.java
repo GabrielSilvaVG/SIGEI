@@ -1,7 +1,7 @@
 package com.sigei.dao.evento;
 
-import com.sigei.dao.conexao.ConnectionFactory;
-import com.sigei.dao.interfaces.IGenericsDao;
+import com.sigei.dao.ConnectionFactory;
+import com.sigei.dao.IGenericsDao;
 import com.sigei.dao.usuariosDao.ParticipanteDao;
 import com.sigei.model.evento.Evento;
 import com.sigei.model.evento.Inscricao;

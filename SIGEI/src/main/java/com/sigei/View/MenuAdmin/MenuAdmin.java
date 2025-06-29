@@ -35,7 +35,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             int iscricoesAtivas = new MenuAdminController().getIscricoesAtivas();
 
             eventosAtivos.setText("Eventos ativos: " + eventosNaoFinalizados);
-            ParticipantesInscritos.setText("Participantes inscritos:: " + iscricoesAtivas);
+            ParticipantesInscritos.setText("Participantes inscritos: " + iscricoesAtivas);
             
         } catch (SQLException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(this, "Erro ao conectar-se com o banco!");

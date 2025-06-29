@@ -1,8 +1,8 @@
 package com.sigei.dao.usuariosDao;
 
 import com.sigei.dao.evento.InscricaoDao;
-import com.sigei.dao.interfaces.IGenericsDao;
-import com.sigei.dao.conexao.ConnectionFactory;
+import com.sigei.dao.IGenericsDao;
+import com.sigei.dao.ConnectionFactory;
 import com.sigei.model.usuarios.Participante;
 
 import java.sql.Connection;

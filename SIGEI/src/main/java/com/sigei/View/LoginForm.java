@@ -117,7 +117,7 @@ public class LoginForm extends javax.swing.JFrame {
         fieldEmail.setBackground(new java.awt.Color(74, 85, 104));
         fieldEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fieldEmail.setForeground(new java.awt.Color(247, 250, 252));
-        fieldEmail.setText("organizadorteste@gmail");
+        fieldEmail.setText("sigei@gmail.com");
         fieldEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         fieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

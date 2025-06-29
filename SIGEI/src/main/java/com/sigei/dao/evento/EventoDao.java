@@ -1,11 +1,10 @@
 package com.sigei.dao.evento;
 
-import com.sigei.dao.conexao.ConnectionFactory;
-import com.sigei.dao.interfaces.IGenericsDao;
+import com.sigei.dao.ConnectionFactory;
+import com.sigei.dao.IGenericsDao;
 import com.sigei.dao.usuariosDao.OrganizadorDao;
 import com.sigei.model.enums.EStatusEvento;
 import com.sigei.model.evento.Evento;
-import com.sigei.model.usuarios.Participante;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -74,8 +73,6 @@ public class EventoDao implements IGenericsDao<Evento, Integer> {
         Connection c = ConnectionFactory.getConnection();
         String sql = "SELECT idevento,nome,tipo,local,dataEvento,vagasTotal,vagasOcupadas,palestrante,organizadorID, statusEvento\n" +
                     "FROM evento where idevento = ?;";
-
-        new InscricaoDao().deleteAllFromEvent(key);
 
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, key);

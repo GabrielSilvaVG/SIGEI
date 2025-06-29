@@ -263,7 +263,7 @@ public class GerenciarEventos extends javax.swing.JPanel {
             try {
                 new MenuAdminController().apagarEvento(IDEvento);
                 modelo.removeRow(linhaSelecionada);// Remove da tabela
-                JOptionPane.showMessageDialog(this, "Usuário apagado com sucesso!");
+                JOptionPane.showMessageDialog(this, "Evento apagado com sucesso!");
             } catch (SQLException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(this, "Erro ao apagar usuário!");            }
         }
@@ -311,7 +311,7 @@ public class GerenciarEventos extends javax.swing.JPanel {
         int linhaSelecionada = ListaEventos.getSelectedRow();
     
         if (linhaSelecionada == -1) {
-            JOptionPane.showMessageDialog(this, "Selecione um evento para apagar!");
+            JOptionPane.showMessageDialog(this, "Selecione um evento para finalizar!");
             return;
         }
         
