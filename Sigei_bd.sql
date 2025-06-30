@@ -39,7 +39,7 @@ CREATE TABLE `evento` (
   UNIQUE KEY `idevento_UNIQUE` (`idevento`),
   KEY `organizadorID_idx` (`organizadorID`),
   CONSTRAINT `organizadorID` FOREIGN KEY (`organizadorID`) REFERENCES `usuario` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,6 +48,7 @@ CREATE TABLE `evento` (
 
 LOCK TABLES `evento` WRITE;
 /*!40000 ALTER TABLE `evento` DISABLE KEYS */;
+INSERT INTO `evento` VALUES (9,'CR7 FootWear','Apresentação Comercial','Santiago Bernabeu','2025-07-07 15:30:00',30000,0,'CR7',7,'NAO_FINALIZADO');
 /*!40000 ALTER TABLE `evento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +70,7 @@ CREATE TABLE `inscricao` (
   KEY `eventoID_idx` (`eventoID`),
   CONSTRAINT `eventoID` FOREIGN KEY (`eventoID`) REFERENCES `evento` (`idevento`),
   CONSTRAINT `participanteID` FOREIGN KEY (`participanteID`) REFERENCES `usuario` (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +101,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`idusuario`),
   UNIQUE KEY `idusuario_UNIQUE` (`idusuario`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +110,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Julio','b@a','550e1bafe077ff0b0b67f4e32f29d751','ORGANIZADOR','f','e',NULL);
+INSERT INTO `usuario` VALUES (5,'Adm','admin@gmail','25d55ad283aa400af464c76d713c07ad','ADMIN',NULL,NULL,NULL),(6,'Gabriel Silva','participante@gmail','25d55ad283aa400af464c76d713c07ad','PARTICIPANTE',NULL,'98271568','14272436627'),(7,'Cristiano Ronaldo','organizador@gmail','25d55ad283aa400af464c76d713c07ad','ORGANIZADOR','CR7 Footwear ','98271568',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -122,4 +123,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-12 10:31:14
+-- Dump completed on 2025-06-30 10:19:44
