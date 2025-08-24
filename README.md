@@ -1,4 +1,4 @@
-# 🎯 SIGEI - Sistema de Gerenciamento de Eventos e Inscrições
+#  SIGEI - Sistema de Gerenciamento de Eventos e Inscrições
 
 <div align="center">
 
@@ -21,7 +21,7 @@ O **SIGEI** é um sistema desenvolvido em Java que permite o gerenciamento efici
 - ✅ Listagem de participantes por evento
 - ✅ Validação de dados
 
-## 🚀 Como Executar
+##  Como Executar
 
 ### Pré-requisitos
 - Java JDK 11 ou superior
