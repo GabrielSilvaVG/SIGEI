@@ -27,14 +27,6 @@ O **SIGEI** é um sistema desenvolvido em Java que permite o gerenciamento efici
 - Java JDK 11 ou superior
 - IDE de sua preferência
 
-### Instalação
-```bash
-git clone https://gitlab.com/seu-usuario/sigei.git
-cd sigei
-javac -d bin src/**/*.java
-java -cp bin Main
-```
-
 ## 🏗️ Estrutura do Projeto
 
 ```
@@ -52,14 +44,6 @@ src/
 - **Polimorfismo**: Métodos específicos por tipo
 - **Abstração**: Interfaces claras
 
-## 🤝 Como Contribuir
-
-1. Fork o projeto
-2. Crie uma branch (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
-
 ## 👨‍💻 Autor
 
 **Gabriel Silva**
@@ -69,6 +53,6 @@ src/
 
 <div align="center">
 
-**Desenvolvido com ❤️ para consolidar conhecimentos em POO**
+**Desenvolvido para consolidar conhecimentos em POO**
 
 </div>
